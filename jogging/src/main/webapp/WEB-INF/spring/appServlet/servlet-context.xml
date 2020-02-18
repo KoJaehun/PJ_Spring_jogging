@@ -21,7 +21,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!--  읽는다 -->
 	<context:component-scan base-package="com.jogging.controller" />
+	<context:component-scan base-package="com.jogging.service" />
 	
 	
 	

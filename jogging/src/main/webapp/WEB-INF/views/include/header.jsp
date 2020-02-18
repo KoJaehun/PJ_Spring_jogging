@@ -13,9 +13,12 @@
 	<script src="https://kit.fontawesome.com/2518bc55d6.js" crossorigin="anonymous"></script>
 	<style type="text/css">
 		body{
-			background-color: grey;
+			background-color: white;
 		}
 		div.header_wrap{
+			position: fixed;
+			top: 0;
+			z-index:100;
 			width: 100%;
 			background-color: white;
 			box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20, 23, 28, .1);
@@ -27,8 +30,8 @@
 			margin: 0 auto;
 			height: 65px;
 			box-sizing: border-box;
-			border-left: 1px solid red;
-			border-right: 1px solid red;
+			/* border-left: 1px solid red;
+			border-right: 1px solid red; */
 			display: flex;
 			justify-content: space-between;
 			
