@@ -8,6 +8,7 @@
 <!-- favicon -->
 
 <!-- font awesome -->
-<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<!-- <link rel="stylesheet" type="text/css" href="../../css/common.css"> -->
+<script src="https://kit.fontawesome.com/912e79718f.js" crossorigin="anonymous"></script>
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

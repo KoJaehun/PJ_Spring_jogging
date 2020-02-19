@@ -25,7 +25,7 @@ public class IndexController {
 	IndexService iService;
 	
 	
-	@GetMapping("/index")
+	@GetMapping("/")
 	public String indexView(Model model) {
 		log.info(">>>>> INDEX PAGE 출력");
 		

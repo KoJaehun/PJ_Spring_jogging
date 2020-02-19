@@ -204,7 +204,7 @@
 			display: block;
 			width: 330px;
 			height: 110px;
-			background: url('C:/Developer/web_design_workspace/jogging/img/jogging.png') 0 -20px;
+			background: url('${path}/resources/img/jogging.png') 0 -20px;
 			margin: 5px;
 		}
 		/* 모달끝 */
@@ -223,7 +223,7 @@ div#content_layout{
 			display: block;
 			width: 330px;
 			height: 100px;
-			background: url('C:/Developer/web_design_workspace/jogging/img/jogging.png') 0 -20px;
+			background: url('${path}/resources/img/jogging.png') 0 -20px;
 			margin: auto;
 			
 		}
@@ -278,7 +278,7 @@ div#content_layout{
 			height: 26px;
 		}
 		#state > label{
-			background:url('../Img/NAVER/check_off.gif') no-repeat;
+			background:url('${path}/resources/img/check_off.gif') no-repeat;
 			display: block;
 			height: 26px;
 			line-height: 26px;
@@ -296,7 +296,7 @@ div#content_layout{
 		}
 
 		#state > input:checked + label{
-			background-image: url('../Img/NAVER/check_on.gif');
+			background-image: url('${path}/resources/img/check_on.gif');
 		}
 
 		#secure{
@@ -704,7 +704,7 @@ div#content_layout{
 							<a href="#"><i class="fas fa-shopping-cart"></i></a></div>
 					</div>
 					<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
-					<div><button type="button" class="btn btn-primary">회원가입</button></div>
+					<div><button type="button" id="header_btn_join" class="btn btn-primary">회원가입</button></div>
 				</div>
 			</div>
 		</div>
@@ -746,7 +746,7 @@ div#content_layout{
 	// login 버튼 클릭 시 modal창 open
 	$(document).on('click', '.login_open', function(){
 		$('.modal_wrap').css('display', 'flex');
-		$('#login_id').focus();
+		
 
 	});
 	// Modal 창의 X 버튼을 클릭하면 Modal창 Close
@@ -797,5 +797,13 @@ div#content_layout{
 		}
 
 	});
+	
+	
+	
+	// Header 가입하기 버튼 클릭시 동의 페이지 이동 
+	$(document).on('click', '#header_btn_join', function() {
+		location.href="${path}/member/constract";
+	});
+	
 </script>
 </html>

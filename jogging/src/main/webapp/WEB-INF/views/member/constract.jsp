@@ -2,9 +2,12 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../include/header.jsp" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 	<title>가입동의</title>
 	<style type="text/css">
 		@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
@@ -59,8 +62,8 @@
 		.n_logo{
 			display: block;
 			width: 330px;
-			height: 95px;
-			background: url('C:/Developer//web_design_workspace/jogging/img/jogging.png') 0 -25px;
+			height: 100x;
+			background: url('${path}/resources/img/jogging.png') 0 -25px;
 			margin: 0 auto;
 		}
 		.lang{
@@ -80,7 +83,7 @@
 		}
 		.lang > select {
 			background-color: white;
-			background: url('C:/Developer/web_design_workspace/img/NAVERCloud/sel_arr.gif') 100% 50% no-repeat;
+			background: url('${path}/resources/img/sel_arr.gif') 100% 50% no-repeat;
 			-webkit-appearance: none;
 
 		}
@@ -112,7 +115,7 @@
 			position: relative;
 		}
 		.terms_span > label{
-			background: url('../img/NAVERCloud/check_off.gif') 100% 50% no-repeat;
+			background: url('${path}/resources/img/checkbox222.png') 100% 50% no-repeat;
 			display: block;
 			line-height: 20px;
 			height: 58px;
@@ -126,7 +129,7 @@
 			height: 58px;
 		}
 		.terms_span > input:checked + label {
-			background-image: url('../img/NAVERCloud//check_on.gif');
+			background-image: url('${path}/resources/img/checkbox333.png');
 		}
 		.terms_ul{
 			padding-bottom: 7px;
@@ -171,11 +174,11 @@
 			top: 50%;
 		}
 		.ul_li_span > label{
-			background: url('C:/Developer/web_design_workspace/img/checkbox/checkbox222.png') 100% 50% no-repeat;
+			background: url('${path}/resources/img/checkbox222.png') 100% 50% no-repeat;
 			display: block;
 		}
 		.ul_li_span > input:checked + label{
-			background-image: url('C:/Developer/web_design_workspace/img/checkbox/checkbox333.png');
+			background-image: url('${path}/resources/img/checkbox333.png');
 		}
 		.terms_box{
 			position: relative;
@@ -211,7 +214,7 @@
 			color: #f46665;
 			display: block;
 		}
-		#err_check{
+		.err_check{
 			display: none;
 		}
 		.btn_double_area{
@@ -224,7 +227,7 @@
 			width: 50%;
 		}
 		.btn_type{
-			width: auto;
+			width: 225px;
 			margin: 0px 5px;
 			font-size: 20px;
 			font-weight: 600;
@@ -344,8 +347,8 @@
 					  	<ul class="terms_ul">
 					  		<li class="terms_ul_li1">
 					  			<span class="ul_li_span">
-					  				<input type="checkbox" id="li1box" class="ckboxs">
-					  				<label for="li1box" class="label1">
+					  				<input type="checkbox" id="cons_box1" class="ckboxs">
+					  				<label for="cons_box1" class="label1">
 					  					조깅 이용약관 동의<span class="span_only">(필수)</span>
 					  				</label>
 					  			</span>
@@ -363,8 +366,8 @@
 					  		</li>
 					  		<li class="terms_ul_li2">
 					  			<span class="ul_li_span">
-					  				<input type="checkbox" id="li2box" class="ckboxs">
-					  				<label for="li2box" class="label1">
+					  				<input type="checkbox" id="cons_box2" class="ckboxs">
+					  				<label for="cons_box2" class="label1">
 					  					개인정보 수집 및 이용에 대한 안내<span class="span_only">(필수)</span>
 					  				</label>
 					  			</span>
@@ -381,8 +384,8 @@
 					  		</li>
 					  		<li class="terms_ul_li3">
 					  			<span class="ul_li_span">
-					  				<input type="checkbox" id="li3box" class="ckboxs">
-					  				<label for="li3box" class="label1">
+					  				<input type="checkbox" id="cons_box3" class="ckboxs">
+					  				<label for="cons_box3" class="label1">
 					  					위치정보 이용약관 동의<span class="span_select">(선택)</span>
 					  				</label>
 					  			</span>
@@ -398,8 +401,8 @@
 					  		</li>
 					  		<li class="terms_ul_li4">
 					  			<span class="ul_li_span">
-					  				<input type="checkbox" id="li4box" class="ckboxs">
-					  				<label for="li4box" class="label1">
+					  				<input type="checkbox" id="cons_box4" class="ckboxs">
+					  				<label for="cons_box4" class="label1">
 					  					이벤트 등 프로모션 알림 메일 수신<span class="span_select">(선택)</span>
 					  				</label>
 					  			</span>
@@ -413,8 +416,8 @@
 					</div>
 
 					<div class="btn_double_area">
-						<span><a href="#" class="btn_type btn_default">취소</a></span>
-						<span><a href="#" class="btn_type btn_agree">확인</a></span>
+						<span><button id="cons_btn_cancel" class="btn_type btn_default">취소</button></span>
+						<span><button id="cons_btn_agree" class="btn_type btn_agree">확인</button></span>
 					</div>
 
 				</form>
@@ -438,7 +441,7 @@
 				<div id="address">
 					<span>
 						<a href="http://www.naver.com">
-							<img id="addr_logo" src="C:/Developer//web_design_workspace/jogging/img/jogging.png">
+							<img id="addr_logo" src="${path}/resources/img/jogging.png">
 						</a>
 					</span>
 					<span>Copyright</span>
@@ -450,4 +453,61 @@
 		</footer>
 	</div>
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		/* 전체선택 체크시 전체 체크 or 전체 체크해제 */
+		$('#cbox').on('click', function(){
+			var flag = $(this).is(':checked'); // 체크여부(Bool값)
+			if(flag == true) {
+				$('.ckboxs').prop('checked', true); // 체크
+			} else {
+				$('.ckboxs').prop('checked', false); // 체크해제
+			}
+		});
+
+		/*  선택체크가 모두 체크되면 전체체크버튼 True 
+			선택체크가 하나라도 체크해제이면 전체체크버튼 False */
+		$('.ckboxs').on('click', function(){
+			var ckLen = $('.ckboxs:checkbox:checked').length;
+			if(ckLen != 4) {
+				$('#cbox').prop('checked', false);
+			} else {
+				$('#cbox').prop('checked', true);
+			}
+		});
+		
+		/* 확인버튼 클릭시 필수체크(2개) 체크유무 유효성 체크 */
+		$('#cons_btn_agree').on('click', function(){
+			var agree_one = $('#cons_box1').is(':checked');
+			var agree_two = $('#cons_box2').is(':checked');
+			var agree_three = $('#cons_box3').is(':checked');
+			var agree_four = $('#cons_box4').is(':checked');
+			
+			/* console.log('동의1: ' + agree_one);
+			console.log('동의2: ' + agree_two);
+			console.log('동의3: ' + agree_three);
+			console.log('동의4: ' + agree_four); */
+			
+			if(agree_one == false || agree_two == false) {
+				$('.err_check').css('display', 'block');
+				return false;
+			}
+			
+			
+			// 유효성체크 통과시 회원가입 페이지로 이동!
+			location.href="${path}/member/join?useon="+agree_one
+										+"&primaryon="+agree_two
+											+"&locon="+agree_three
+										  +"&eventon="+agree_four;
+		});
+		
+		/* 취소 버튼 클릭시 INDEX 페이지로 이동 */
+		$('#cons_btn_cancel').on('click', function(){
+			location.href='${path}/';
+		});
+	});
+	
+</script>
+
 </html>
