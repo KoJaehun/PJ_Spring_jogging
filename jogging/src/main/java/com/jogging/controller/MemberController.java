@@ -23,7 +23,7 @@ public class MemberController {
 		
 	}
 	
-	@GetMapping("/join")
+	@PostMapping("/join")
 	public String getJoin(MemberDTO mDto) {
 		log.info(">>>>> MEMBER/JOIN PAGE GET 출력");
 		log.info(mDto.toString());
