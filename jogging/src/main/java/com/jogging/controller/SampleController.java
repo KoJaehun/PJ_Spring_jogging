@@ -1,9 +1,11 @@
 package com.jogging.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jogging.domain.SampleDTO;
 
@@ -68,5 +70,27 @@ public class SampleController {
 		
 		return "result";
 	}
+	
+	// 동기방식
+	@GetMapping("/sync")
+	public String sync(String name, Model model) {
+		
+		log.info("동기방식: " + name);
+		model.addAttribute("name", name);
+		
+		return "sample";
+	}
+	
+	// 비동기방식
+	@ResponseBody
+	@PostMapping(value="/ajax", produces="application/text;charset=utf-8")
+															// 한글로 써도 꺠지지 않게 해줌 
+	public String async(String name) {
+		log.info("비동기방식: " + name);
+		log.info(name.toString());
+		
+		return name;
+	}
+	
 	
 }
