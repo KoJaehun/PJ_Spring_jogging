@@ -416,8 +416,8 @@
 					</div>
 
 					<div class="btn_double_area">
-						<span><button id="cons_btn_cancel" class="btn_type btn_default">취소</button></span>
-						<span><button id="cons_btn_agree" class="btn_type btn_agree">확인</button></span>
+						<span><button type="button" id="cons_btn_cancel" class="btn_type btn_default">취소</button></span>
+						<span><button type="button" id="cons_btn_agree" class="btn_type btn_agree">확인</button></span>
 					</div>
 
 				</form>
@@ -499,12 +499,13 @@
 			location.href="${path}/member/join?useon="+agree_one
 										+"&primaryon="+agree_two
 											+"&locon="+agree_three
-										  +"&eventon="+agree_four;
+										  +"&eventon="+agree_four
+										  +"&flag=1";
 		});
 		
 		/* 취소 버튼 클릭시 INDEX 페이지로 이동 */
 		$('#cons_btn_cancel').on('click', function(){
-			location.href='${path}/';
+			location.href="${path}/";
 		});
 	});
 	

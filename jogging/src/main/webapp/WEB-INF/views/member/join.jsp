@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 	<title>회원가입</title>
-	<link rel="icon" type="image/png" href="../img/NAVERCloud/naversm.png">
+	<link rel="icon" type="image/png" href="${path}/resources/img/NAVERCloud/naversm.png">
 	<script src="https://kit.fontawesome.com/2518bc55d6.js" crossorigin="anonymous"></script>
 	<style type="text/css">
 		*{
@@ -42,7 +44,7 @@
 			display: block;
 			width: 330px;
 			height: 100px;
-			background: url('C:/Developer/web_design_workspace/jogging/img/jogging.png') 0 -20px;
+			background: url('${path}/resources/img/jogging.png') 0 -20px;
 			margin: auto;
 		}
 		.join_content{
@@ -245,10 +247,15 @@
 <body>
 	<div class="wrap">
 	<header><div class="header">
-		<h1 class="naver_logo"><a href="#" class="n_logo"></a></h1>
+		<h1 class="naver_logo"><a href="${path}/" class="n_logo"></a></h1>
 	</div></header>
 	<section>
-		<form name="frm_join" action="" method="POST">
+		<!-- Spring form 태그  -->
+		<!--  method : POST (default)
+			  action :  -->
+		
+		<%-- <form id="frm_member"  name="frm_member" action="${path}/resources/member/join" method="POST"> --%>
+		<form:form id="frm_member" modelAttribute="memberDTO" autocomplete="on">
 			<div class="container">
 				<div class="join_content">
 					<div class="row_group">
@@ -259,7 +266,7 @@
 								<label for="id">아이디</label>
 							</h3>
 							<span class="ps_box int_id">
-								<input type="text" id="uid" name="uid" class="int">
+								<input type="text" id="uid" name="id" class="int">
 								<span class="step_url">@jogging.com</span>
 							</span>
 							<span class="join_err_msg">필수 정보입니다.</span>
@@ -272,7 +279,7 @@
 								<label for="pswd1">비밀번호</label>
 							</h3>
 							<span class="ps_box int_pass">
-								<input type="text" id="upw" name="upw" class="int">
+								<input type="text" id="upw" name="pw" class="int">
 								<span class="step_url"><span class="pw_lock"></span></span>
 							</span>
 							<span class="join_err_msg">필수 정보입니다.</span>
@@ -284,7 +291,7 @@
 								<label for="pswd2">비밀번호 재확인</label>
 							</h3>
 							<span class="ps_box int_pass">
-								<input type="text" id="urpw" name="urpw" class="int">
+								<input type="text" id="urpw" name="rpw" class="int">
 								<span class="step_url"><span class="repw_lock"></span></span>
 							</span>
 							<span class="join_err_msg">필수 정보입니다.</span>
@@ -302,7 +309,7 @@
 								<label for="name">이름</label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="uname" name="uname" class="int">
+								<input type="text" id="uname" name="name" class="int">
 							</span>
 							<span class="join_err_msg">필수 정보입니다.</span>
 						</div>
@@ -371,7 +378,7 @@
 								<label for="email">본인 확인 이메일<span class="choice">(선택)</span></label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="uemail" name="uemail" class="int" placeholder="선택입력">
+								<input type="text" id="uemail" name="email" class="int" placeholder="선택입력">
 							</span>
 							<span class="join_err_msg">필수 정보입니다.</span>
 						</div>
@@ -381,7 +388,7 @@
 								<label for="phone">휴대전화</label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="uphone" name="uphone" class="int" placeholder="'-' 없이 입력 예)01012345678">
+								<input type="text" id="uphone" name="phone" class="int" placeholder="'-' 없이 입력 예)01012345678">
 							</span>
 							<span class="join_err_msg">필수 정보입니다.</span>
 						</div>
@@ -392,15 +399,16 @@
 							</h3>
 
 							<span class="ps_box">
-								<input class="int addr_only" type="text" id="sample6_postcode" placeholder="우편번호" value="52123" readonly>
+								<input name="postcode" class="int addr_only" type="text" id="sample6_postcode" placeholder="우편번호" value="52123" readonly>
 								<input class="int postfind" type="button" id="btn_post" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 							</span>
 							
 							<span class="ps_box">
-								<input class="int addr_only" type="text" id="sample6_address" placeholder="주소" value="광주광역시" readonly><br>
+								<input name="addr1" class="int addr_only" type="text" id="sample6_address" placeholder="주소" value="광주광역시" readonly><br>
 							</span>
 							<span class="ps_box">
-								<input class="int" type="text" id="sample6_detailAddress" placeholder="상세주소">
+								<input name="addr2" class="int" type="text" id="sample6_detailAddress" placeholder="상세주소">
+								<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 							</span>
 							
 							<span class="join_err_msg">필수 정보입니다.</span>
@@ -413,7 +421,8 @@
 					</div>
 				</div>
 			</div>
-		</form>
+		</form:form>
+		<%--</form>  --%>
 	</section>
 	<footer>
 			<div id="footer">
@@ -426,7 +435,7 @@
 				<div id="address">
 					<span>
 						<a href="http://www.naver.com">
-							<img id="addr_logo" src="C:/Developer/web_design_workspace/jogging/img/jogging.png">
+							<img id="addr_logo" src="${path}/resources/img/jogging.png">
 						</a>
 					</span>
 					<span>Copyright</span>
@@ -439,12 +448,26 @@
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="../../js/vallydation.js"></script>
+<script src="${path}/resources/js/vallydation.js"></script>
 
 <script type="text/javascript">
 	
+
+
+	
 	
 	$(function(){
+		
+		// 비정산적인 접근인지 판단하는 flag
+		
+		var flag = '${flag}';
+		if(flag == 0) {
+			location.href="${path}/member/constract";
+		}
+		
+		// @sessionAttributes 값 확인
+		// console.log('el tag: ' +${memberDTO.locon});
+		
 		
 		// 비밀번호가 유효한 값인지 체크해주는 Flag값
 		var pwFlag = false;
@@ -458,7 +481,6 @@
 
 
 		
-
 
 
 		// id 유효성체크 :
@@ -614,16 +636,16 @@
 			var result = joinValidate.checkAddr(addrDetail, addrPost);
 
 			if(result.code == 3) {							// 우편번호 & 주소 X
-				ckDesign(result.code, result.desc, 11, 8);
 				ckDesign(result.code, result.desc, 10, 8);
+				ckDesign(result.code, result.desc, 9, 8);
 				checkArr[5] = false;
 			} else if (result.code == 0) {					// 성공
+				ckDesign(result.code, result.desc, 9, 8);
 				ckDesign(result.code, result.desc, 10, 8);
-				ckDesign(result.code, result.desc, 11, 8);
-				ckDesign(result.code, result.desc, 12, 8);
+				ckDesign(result.code, result.desc, 10, 8);
 				checkArr[5] = true;
 			} else {										// 상세주소 통과 X한 모든 경우
-				ckDesign(result.code, result.desc, 12, 8);
+				ckDesign(result.code, result.desc, 11, 8);
 				checkArr[5] = false;
 			}
 			printCheckArr(checkArr);
@@ -636,7 +658,7 @@
 
 			for(var i = 0; i< checkArr.length; i++){
 				if(!checkArr[i]) {
-					checkAllfalse;
+					checkAll = false;
 				}
 			}
 			if(checkAll) {
@@ -660,11 +682,16 @@
 									   .css('color', '#d95339');
 				}
 			}
-			printCheckArr(checkArr);
+			// printCheckArr(checkArr);
 			
 			if(invalidAll) {
-				alert('회원가입 성공!');
+				alert('회원가입 성공!');   
+				// submit: form태그 안에 있는 데이터들을 서버단으로 전송
+				// action: 목적지(MemberController '/join')
+				// method: 방법(POST: 숨겨서)
+				$('#frm_member').submit();
 			} else {
+				
 				alert('유효성체크를 진행해주세요!');
 			}
 
