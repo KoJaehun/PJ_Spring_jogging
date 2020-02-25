@@ -641,11 +641,11 @@
 				checkArr[5] = false;
 			} else if (result.code == 0) {					// 성공
 				ckDesign(result.code, result.desc, 9, 8);
-				ckDesign(result.code, result.desc, 10, 8);
-				ckDesign(result.code, result.desc, 10, 8);
+				ckDesign(result.code, result.desc, 11, 8);
+				ckDesign(result.code, result.desc, 12, 8);
 				checkArr[5] = true;
 			} else {										// 상세주소 통과 X한 모든 경우
-				ckDesign(result.code, result.desc, 11, 8);
+				ckDesign(result.code, result.desc, 12, 8);
 				checkArr[5] = false;
 			}
 			printCheckArr(checkArr);

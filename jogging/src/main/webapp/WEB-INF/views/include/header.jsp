@@ -473,6 +473,7 @@ div#content_layout{
 
 </head>
 <body>
+
 	<div class="modal_wrap">
 		<div class="modal_content">
 			<div class="login_close">

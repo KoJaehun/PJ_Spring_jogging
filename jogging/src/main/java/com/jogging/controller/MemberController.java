@@ -1,6 +1,9 @@
 package com.jogging.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jogging.domain.MemberDTO;
+import com.jogging.persistence.MemberDAO;
+import com.jogging.service.mail.MailService;
 import com.jogging.service.member.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +47,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private MailService mailService;
+	
+	private MemberDAO mDao;
+	
 	@Autowired
 	MemberService mService;
 	
@@ -102,33 +116,51 @@ public class MemberController {
 	 */
 	
 	@PostMapping("/join")
-	public String join(@ModelAttribute("memberDTO") MemberDTO mDto,
-					   SessionStatus sessionStatus) {
-		log.info(">>>> MEMBER/JOIN POST DB에 회원정보 저장");
+	public String join(@ModelAttribute("MemberDTO") MemberDTO mDto,
+						SessionStatus sessionStatus,
+						HttpServletRequest request,
+						RedirectAttributes rttr) {
+		log.info(">>>> MEMBER/JOIN POST POST 출력");
+	
 		log.info(mDto.toString());
 		
-		// 2. DB에 회원 등록
+		log.info("Password: " + mDto.getPw()); // 사용자 입력pw값
+		// 1. 사용자 암호 hash 변환
+		String encPw = passwordEncoder.encode(mDto.getPw());
+		mDto.setPw(encPw);
+		log.info("Password(+Hash): " + mDto.getPw());
+		
+		// 2. DB에 회원등록
 		int result = mService.memInsert(mDto);
 		
-		// 3. 회원 등록 결과
+		// 3. 회원등록 결과 
 		if(result > 0 ) {
-			log.info(">>>>" + mDto.getId() + "님 회원가입되셨습니다.");
+			log.info(">>>> " + mDto.getId()+ "님 회원가입 되셨습니다");
+			
 		}
+		// 4. 회원가입 인증 메일 보내기
+		mailService.mailSendUser(mDto.getEmail(), mDto.getId(), request);
 		
 		// SessionAttributes를 사용할 때 insert, update가 완료되고
 		// view로 보내기전 반드시 setComplet()를 실행하여
 		// session에 담긴 값을 clear 해주어야 한다.
-		
 		sessionStatus.setComplete();
-		
-		return "";
+		return "redirect:/";
 	}
 	
+	// 회원가입 후 email 인증
+	@GetMapping("/keyauth")
+	public String keyAuth(String id, String key, RedirectAttributes rttr) {
+		mailService.keyAuth(id, key);
+		
+		// 인증 후 메시지 출력을 위한 값 전달
+		rttr.addFlashAttribute("id", id);
+		rttr.addFlashAttribute("key", "auth");
+		
+		return "redirect:/";
+	}
 	
-	
-	
-	
-//	 회원가입 ID 중복체크
+	//	 회원가입 ID 중복체크
 	@ResponseBody
 	@PostMapping("/idoverlap")
 	public String idOverlap(String id) {
