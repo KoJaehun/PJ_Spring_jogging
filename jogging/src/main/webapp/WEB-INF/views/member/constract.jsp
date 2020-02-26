@@ -20,7 +20,10 @@
 			font-family: 'Nanum Gothic', sans-serif;
 		}
 		body, ul, h1, h2, h3, h4, h5, h6 {
-			margin: 0; padding: 0;
+			
+			margin: 0; 
+			padding: 0;
+			
 		}
 		body{
 			background-color: white;
@@ -58,6 +61,7 @@
 		}
 		.naver_logo{
 			font-size: 2em;
+			
 		}
 		.n_logo{
 			display: block;
@@ -68,8 +72,8 @@
 		}
 		.lang{
 			position: absolute; /* 부모를 기준 (header) */
-			top: 14px;
-			right: 0px;
+			top: 20px;
+			right: -160px;
 		}
 		.langselect{
 			font-size: 12px;

@@ -55,8 +55,8 @@ public class MemberController {
 	
 	private MemberDAO mDao;
 	
-	@Autowired
-	MemberService mService;
+	@Autowired // Spring에서 의존성 주입 하는법
+	MemberService mService; // 의존성주입이 필요
 	
 	/*
 	 * SessionAttributes를 사용하기 위해서는
@@ -120,8 +120,11 @@ public class MemberController {
 						SessionStatus sessionStatus,
 						HttpServletRequest request,
 						RedirectAttributes rttr) {
+		
+		// View단에서 Controller 단으로 이동했는지 확인
 		log.info(">>>> MEMBER/JOIN POST POST 출력");
-	
+		
+		// View단에서 전송된 데이터가 잘 전달됐는지 확인
 		log.info(mDto.toString());
 		
 		log.info("Password: " + mDto.getPw()); // 사용자 입력pw값
@@ -145,6 +148,12 @@ public class MemberController {
 		// view로 보내기전 반드시 setComplet()를 실행하여
 		// session에 담긴 값을 clear 해주어야 한다.
 		sessionStatus.setComplete();
+		
+		// 회원가입 후 메시지 출력을 위한 값 전달
+		rttr.addFlashAttribute("id", mDto.getId());
+		rttr.addFlashAttribute("email", mDto.getEmail());
+		rttr.addFlashAttribute("key", "join");
+		
 		return "redirect:/";
 	}
 	

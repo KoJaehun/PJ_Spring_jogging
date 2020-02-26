@@ -5,7 +5,7 @@
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
@@ -123,6 +123,8 @@
 	</style>	
 </head>
 <body>
+	<%@ include file="include/modal.jsp" %>
+	
 	<!-- 전체 -->
 	<div class="main_section">
 		 
@@ -195,13 +197,8 @@
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-
-
-
-	
+<script type="text/javascript">	
 </script>
-
 </html>
 
 

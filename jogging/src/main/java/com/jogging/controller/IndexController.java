@@ -33,7 +33,7 @@ public class IndexController {
 		// View 단에 출력할 데이터
 		List<ProductDTO> list = iService.bestPdtList();
 		model.addAttribute("BestPdt", list);
-		 model.addAttribute("NewPdt", iService.newPdtList());
+		model.addAttribute("NewPdt", iService.newPdtList());
 		// 출력할 화면을 결정
 		return "index";
 		

@@ -242,6 +242,37 @@
 			width: 120px;
 			padding: 0;
 		}
+		.headerline{
+			text-align: center;
+			
+		}
+		
+		
+		
+		/* 로딩창 애니메이션 */
+		#back{
+			position: fixed;
+			z-index: 1200;
+			background-color: rgba(0,0,0,0.4);
+			overflow: auto;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			display: none;
+			align-items: center;
+			justify-content: center;
+		}
+		.loading_img{
+			animation: ani_loading 1.5s infinite linear;
+			font-size: 70px;
+			color: #FF2400;
+		}
+		
+		@keyframes ani_loading {
+			from {-webkit-transform: rotate(0deg);}
+			to	 {-webkit-transform: rotate(359deg);}
+		}
 	</style>
 </head>
 <body>
@@ -255,6 +286,7 @@
 			  action :  -->
 		
 		<%-- <form id="frm_member"  name="frm_member" action="${path}/resources/member/join" method="POST"> --%>
+		<h2 class=headerline>Jogging 계정정보를 입력해주세요</h2>
 		<form:form id="frm_member" modelAttribute="memberDTO" autocomplete="on">
 			<div class="container">
 				<div class="join_content">
@@ -591,7 +623,7 @@
 			}
 			printCheckArr(checkArr);
 
-			ckDesign(result.code, result.desc, 9, 7);
+			ckDesign(result.code, result.desc, 5, 5);
 		
 		});
 
@@ -607,7 +639,7 @@
 			}
 			printCheckArr(checkArr);
 
-			ckDesign(result.code, result.desc, 8, 6);
+			ckDesign(result.code, result.desc, 4, 4);
 		});
 
 
@@ -636,16 +668,16 @@
 			var result = joinValidate.checkAddr(addrDetail, addrPost);
 
 			if(result.code == 3) {							// 우편번호 & 주소 X
-				ckDesign(result.code, result.desc, 10, 8);
-				ckDesign(result.code, result.desc, 9, 8);
+				ckDesign(result.code, result.desc, 7, 9);
+				ckDesign(result.code, result.desc, 6, 9);
 				checkArr[5] = false;
 			} else if (result.code == 0) {					// 성공
-				ckDesign(result.code, result.desc, 9, 8);
-				ckDesign(result.code, result.desc, 11, 8);
-				ckDesign(result.code, result.desc, 12, 8);
+				ckDesign(result.code, result.desc, 6, 9);
+				ckDesign(result.code, result.desc, 7, 9);
+				ckDesign(result.code, result.desc, 8, 9);
 				checkArr[5] = true;
 			} else {										// 상세주소 통과 X한 모든 경우
-				ckDesign(result.code, result.desc, 12, 8);
+				ckDesign(result.code, result.desc, 8, 9);
 				checkArr[5] = false;
 			}
 			printCheckArr(checkArr);
@@ -685,13 +717,15 @@
 			// printCheckArr(checkArr);
 			
 			if(invalidAll) {
-				alert('회원가입 성공!');   
+				FunLoadingBarStart(); // 로딩바 생성
+				
+				alert('회원가입 성공!');
+				
 				// submit: form태그 안에 있는 데이터들을 서버단으로 전송
 				// action: 목적지(MemberController '/join')
 				// method: 방법(POST: 숨겨서)
 				$('#frm_member').submit();
 			} else {
-				
 				alert('유효성체크를 진행해주세요!');
 			}
 
@@ -781,5 +815,24 @@
     		console.log(i + '번지: ' + checkArr[i]);
     	}
     }
+    
+    // 로딩바 출력
+    function FunLoadingBarStart() {
+    	var loadingBarImage = ''; // 가운데 띄워 줄 이미지
+    	loadingBarImage += "<div id='back'>";
+    	loadingBarImage += "<div id='loadingBar'>";
+    	loadingBarImage += "<i class='fas fa-spinner loading_img'></i>";
+    	loadingBarImage += "</div></div>";
+    	$('body').append(loadingBarImage);
+    	$('#back').css('display', 'flex');
+    	$('#loadingImg').show();
+    }
+    
+    // 로딩바 제거
+    function FunLoadingBarEnd() {
+    	$('#back, #loadingBar').hide();
+    	$('#back, #loadingBar').remove();
+    }
+    
 </script>
 </html>
