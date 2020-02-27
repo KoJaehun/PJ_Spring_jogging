@@ -193,7 +193,7 @@
 		.modal_content{
 			position: relative;
 			width: 440px;
-			height: 580px;
+			height: 600px;
 			background-color: white;
 			box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0, 4px 20px 0 rgba(0,0,0,0.19);
 			border-radius: 2px;
@@ -240,6 +240,15 @@ div#content_layout{
 			padding: 13px 35px 10px 15px;
 			position: relative;
 		}
+		div.err_content{
+			text-align: left;
+			margin: 0px;
+			color: red;
+			font-size: 13px;
+			font-weight: bold;
+			padding: 0px 0px 15px 10px;
+			display: none;
+		}
 		span.input_box{
 			display: inline-block;
 			overflow: hidden; /*사이즈를 정해놓고 그 이상 넘어버리면 숨기는것*/
@@ -264,7 +273,7 @@ div#content_layout{
 			padding-top: 0px;/*안쪽여백 윗쪽*/
 			line-height: 50px;/*글자가 가운데 정렬된다.//heigt랑 같은값을 주면됨 (패딩 탑2 가 있어서 2를 더해서 준다.)*/
 			text-decoration: none;
-			margin: 15px 0px 15px 0px;/*시계방향으로 상우하좌*/
+			margin: 15px 0px 10px 0px;/*시계방향으로 상우하좌*/
 		}
 		table{
 			width: 100%;
@@ -286,13 +295,14 @@ div#content_layout{
 
 		}
 		#state > input{
-			/*visibility: hidden;*/
+			visibility: hidden;
 
 			position: absolute;
 			left: -85px;
 			width: 200px;
 			height: 22px;
 			margin-top: 3px;
+			
 		}
 
 		#state > input:checked + label{
@@ -423,7 +433,7 @@ div#content_layout{
 			padding-top: 0px;
 			line-height: 50px;
 			text-decoration: none;
-			margin: 20px 0px 0px 0px;
+			margin: 10px 0px 0px 0px;
 		}
 		a#btnkaka{
 			display: block;
@@ -458,8 +468,8 @@ div#content_layout{
 			position: absolute;
 			color: #aaa;
 			font-size: 17px;
-			top: 0px;
-			right: 7px;
+			top: 15px;
+			right: 5px;
 			cursor: pointer;
 			height: 45px;
 			line-height: 45px;
@@ -490,10 +500,11 @@ div#content_layout{
 			</header>
 				<section>
 
-				<form class=frm_login>
+				<div class="err_content">아이디와 비밀번호를 정확히 입력해주세요.</div>
+				<form class="frm_login" onsubmit="return false;">
 				<div class="div_input" id="naver_id">
 					<span class="input_box">
-						<input type="email" placeholder="아이디" required id="login_id" class="input_login" >
+						<input type="email" placeholder="아이디" id="login_id" class="input_login" required>
 					</span>
 
 				</div>
@@ -505,12 +516,6 @@ div#content_layout{
 					</span>
 					
 				</div>
-				
-
-				<div>
-					<button type="submit" class="btn_login">로그인</button>
-				</div>
-
 				</form>
 
 				<div>
@@ -542,6 +547,7 @@ div#content_layout{
 			</section>
 			<aside>
 				<div class="snsArea">
+					<button type="submit" id="btn-login" class="btn_login">로그인</button>
 					<a id="btnface" href="#"><i class="fab fa-facebook-square"></i>
 					페이스북 로그인</a>
 					<a id="btnkaka" href="#"><i class="fas fa-comment"></i>
@@ -704,8 +710,20 @@ div#content_layout{
 						<div class="header_content_member_cart">
 							<a href="#"><i class="fas fa-shopping-cart"></i></a></div>
 					</div>
-					<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
-					<div><button type="button" id="header_btn_join" class="btn btn-primary">회원가입</button></div>
+					<c:choose>
+						<c:when test="${empty sessionScope.userid}">
+							<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
+							<div><button type="button" id="header_btn_join" class="btn btn-primary">회원가입</button></div>
+						</c:when>
+						<c:otherwise>
+							<div><button type="button" class="btn btn-primary" id="header_btn_join">로그아웃</button></div>
+						</c:otherwise>
+					</c:choose>
+					
+					
+					
+					
+					
 				</div>
 			</div>
 		</div>
@@ -760,6 +778,39 @@ div#content_layout{
 				   .css('color', '#aaa');
 
 	});
+	
+	// LOGIN 버튼 클릭시 AJAX 동작
+	$(document).on('click', '#btn-login', function(){
+		// id와 pw값 받아와서 null이면 작동 X
+		var id = $('#login_id').val();
+		var pw = $('#login_pw').val();
+		
+		if(id != '' && pw != '' && id.length != 0 && pw.length != 0) {
+			$.ajax({
+				url: '${path}/login/in',
+				type: 'POST',
+				data: 'id='+id+'&pw='+pw,
+				success: function(data) {
+					console.log(data);
+					
+					if(data == 0 || data == 3) {
+						$('.err_content').css('display', 'block')
+						.text('로그인 중 문제가 발생했습니다. 아이디와 비밀번호를 확인해주세요');
+					} else if (data == 1) {
+						console.log('로그인 성공');
+						location.reload(); // 새로고침
+					} else if (data == 2) {
+						$('.err_content').css('display', 'block')
+						.text('이메일 인증 후 로그인 할 수 있습니다.');
+					}
+				},
+				error: function(){
+					alert('System Error:/');
+				}
+			});
+		}
+	});
+	
 
 	// 값을 가져오는 방법
 		// <span class="aaa" > 동토리 </span>

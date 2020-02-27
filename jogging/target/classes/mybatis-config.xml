@@ -6,6 +6,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.jogging.domain.ProductDTO" alias="ProductDTO"></typeAlias>
+		<typeAlias type="com.jogging.domain.MemberDTO" alias="MemberDTO"></typeAlias>
 	</typeAliases>
 	
 </configuration>

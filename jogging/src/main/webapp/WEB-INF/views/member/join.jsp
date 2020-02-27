@@ -407,7 +407,7 @@
 
 						<div class="join_row">
 							<h3 class="join_title">
-								<label for="email">본인 확인 이메일<span class="choice">(선택)</span></label>
+								<label for="email">본인 확인 이메일<span class="choice">(필수)</span></label>
 							</h3>
 							<span class="ps_box">
 								<input type="text" id="uemail" name="email" class="int" placeholder="선택입력">
