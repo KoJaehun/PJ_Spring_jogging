@@ -40,7 +40,10 @@
 		.header_content_logo{
 
 		}
-		.header_content_search {}
+		.header_content_search {
+			margin-top: 15px;
+			padding: 0px;
+		}
 		.header_content_search_group{
 			display: flex;
 			align-items: center;
@@ -193,7 +196,7 @@
 		.modal_content{
 			position: relative;
 			width: 440px;
-			height: 600px;
+			height: 625px;
 			background-color: white;
 			box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0, 4px 20px 0 rgba(0,0,0,0.19);
 			border-radius: 2px;
@@ -244,7 +247,7 @@ div#content_layout{
 			text-align: left;
 			margin: 0px;
 			color: red;
-			font-size: 13px;
+			font-size: 11px;
 			font-weight: bold;
 			padding: 0px 0px 15px 10px;
 			display: none;
@@ -712,11 +715,12 @@ div#content_layout{
 					</div>
 					<c:choose>
 						<c:when test="${empty sessionScope.userid}">
-							<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
+							<div><button type="button" id="header_btn_login" class="btn btn-basic login_open">로그인</button></div>
 							<div><button type="button" id="header_btn_join" class="btn btn-primary">회원가입</button></div>
 						</c:when>
 						<c:otherwise>
-							<div><button type="button" class="btn btn-primary" id="header_btn_join">로그아웃</button></div>
+							<div><span>${sessionScope.userid}(${sessionScope.name})</span></div>
+							<div><button type="button" id="header_btn_logout" class="btn btn-primary">로그아웃</button></div>
 						</c:otherwise>
 					</c:choose>
 					
@@ -784,12 +788,11 @@ div#content_layout{
 		// id와 pw값 받아와서 null이면 작동 X
 		var id = $('#login_id').val();
 		var pw = $('#login_pw').val();
-		
 		if(id != '' && pw != '' && id.length != 0 && pw.length != 0) {
 			$.ajax({
 				url: '${path}/login/in',
 				type: 'POST',
-				data: 'id='+id+'&pw='+pw,
+				data: 'id=' + id + '&pw=' + pw,
 				success: function(data) {
 					console.log(data);
 					
@@ -850,6 +853,20 @@ div#content_layout{
 
 	});
 	
+	/* 로그아웃 기능 */
+	$(document).on('click', '#header_btn_logout', function(){
+		$.ajax({
+			url: '${path}/login/out',
+			type: 'POST',
+			success: function() {
+				console.log('Logout Success:)');
+				location.reload();
+			},
+			error: function() {
+				alert('System Error:/');
+			}
+		});
+	});
 	
 	
 	// Header 가입하기 버튼 클릭시 동의 페이지 이동 

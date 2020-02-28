@@ -35,4 +35,13 @@ public class LoginController {
 		
 		return result;
 	}
+	
+	@ResponseBody
+	@PostMapping("/out")
+	public void logOut(HttpSession session) {
+		log.info(">>>> POST: LOGOUT/LOGOUT ACTION");
+		
+		IService.logout(session);
+	}
+	
 }

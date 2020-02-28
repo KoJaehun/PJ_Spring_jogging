@@ -37,7 +37,6 @@ public class LoginServiceImpl implements LoginService {
 		// 1. DB에가서 회원이 아닌지 유무 체크
 		MemberDTO loginDto = lDao.loginUser(mDto);
 		log.info("******************** 로그인 결과");
-		
 		// 로그인 결과값
 		int result = 0;
 		
@@ -78,8 +77,11 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public void logout() {
+	public void logout(HttpSession session) {
+		// 비즈니스 로직 : 로그아웃
 		
+		// 세션을 초기화, 제거
+		session.invalidate();
 		
 	}
 	
