@@ -1,6 +1,7 @@
 package com.jogging.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -95,6 +96,11 @@ public class MemberController {
 		log.info(flag);
 		model.addAttribute("flag", flag);
 		
+		// 비정상적인 접근일 경우 약관 동의페이지로 이동
+		if(!flag.equals("1")) {
+			return "member/constract";
+		}
+		
 		return "member/join";
 	}
 	
@@ -184,6 +190,36 @@ public class MemberController {
 		}
 		
 		return flag;
+	}
+	
+	// 회원정보수정
+	@GetMapping("/update")
+	public String memUpdate(HttpSession session, Model model) {
+		log.info(">>>>> GET: Member Update Page");
+		
+		// 현재 로그인 상태를 확인
+		String id = (String)session.getAttribute("userid");
+		
+		// 로그인이 안되있으면 비정상적인 접근으로 간주하여
+		// 인덱스페이지로 이동!
+		if(id == null) { 
+			return "redirect:/";
+		}
+		
+		// 로그인된 유저의 정보를 GET
+		model.addAttribute("user", mService.userView(id));
+		
+		return "member/join";
+	}
+	
+	@PostMapping("/update")
+	public String memUpdate(MemberDTO mDto) {
+		log.info(">>>> POST : Member Update Action");
+		log.info(mDto.toString());
+		
+		mService.memUpdate(mDto, session);
+		
+		return "redirect:/";
 	}
 	
 }
