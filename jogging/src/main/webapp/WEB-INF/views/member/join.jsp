@@ -597,7 +597,7 @@
 			var rpw = $.trim($('#urpw').val());
 			
 			// 2. 유효성 체크하기
-			var result = joinValidate.checkPw(pw,rpw);
+			var result = joinValidate.checkPw("", pw, rpw);
 			if(result.code == 0 || result.code == 10 || result.code == 6) {
 				pwFlag = true;
 			} else {
@@ -741,7 +741,9 @@
 			}
 			printCheckArr(checkArr);
 		}
-
+		
+		
+		// 버튼활성화 
 		$('.int').blur(function(){
 			
 			var checkAll = true;

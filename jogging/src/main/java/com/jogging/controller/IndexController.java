@@ -2,6 +2,8 @@ package com.jogging.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class IndexController {
 	
 	
 	@GetMapping("/")
-	public String indexView(Model model) {
+	public String indexView(Model model, HttpSession session) {
 		log.info(">>>>> INDEX PAGE 출력");
 		
 		
@@ -34,9 +36,13 @@ public class IndexController {
 		List<ProductDTO> list = iService.bestPdtList();
 		model.addAttribute("BestPdt", list);
 		model.addAttribute("NewPdt", iService.newPdtList());
-		// 출력할 화면을 결정
-		return "index";
 		
+		// 개발 종료시 삭제할 것!
+		// 세션에 로그인유저 정보를 저장 
+		session.removeAttribute("userid");
+		session.removeAttribute("name");
+		session.setAttribute("userid", "qorwlswn2");
+		session.setAttribute("name", "관리자");
 		
 		
 		// 2. View단에 출력할 베스트상품 5건
@@ -48,6 +54,9 @@ public class IndexController {
 		
 		// 5건 신상품 데이터
 		
+		// 출력할 화면을 결정
+				return "index";
+
 		
 	}
 }
