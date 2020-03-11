@@ -20,7 +20,7 @@
 			padding: 0;
 		}
 		body{
-			background-color: white;
+			background-color: #FFFFFF;
 			font-size: 12px;
 		}
 		ul{
@@ -32,7 +32,7 @@
 		}
 		.wrap{
 			width: 768px;
-			margin: 0 auto;
+			margin: 30px auto;
 			
 		}
 		.header{
@@ -46,6 +46,10 @@
 			height: 100px;
 			background: url('${path}/resources/img/jogging.png') 0 -20px;
 			margin: auto;
+		}
+		.container{
+			background-color: #FFFFFF;
+			border: 2px solid #EEEEEE;
 		}
 		.join_content{
 			width: 460px;
@@ -244,6 +248,7 @@
 		}
 		.headerline{
 			text-align: center;
+			margin-bottom: 20px;
 			
 		}
 		

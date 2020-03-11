@@ -261,4 +261,16 @@ public class MemberController {
 		
 		
 	}
+	@GetMapping("/drop")
+	public String drop() {
+		
+		return "member/drop";
+	}
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		
+		return "member/mypage";
+	}
+	
 }

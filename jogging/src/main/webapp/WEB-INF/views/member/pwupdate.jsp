@@ -18,7 +18,7 @@
 			padding: 0;
 		}
 		body{
-			background-color: white;
+			background-color: #FFFFFF;
 			font-size: 12px;
 		}
 		ul{
@@ -29,8 +29,9 @@
 			color: inherit;
 		}
 		.wrap{
-			width: 768px;
-			margin: 0 auto;
+			width: 700px;
+			height: 600px;
+			margin: 100 auto;
 			
 		}
 		.header{
@@ -181,7 +182,9 @@
 			cursor: no-drop;
 		}
 		.container_wrap{
-			width: 
+			background-color: #FFFFFF;
+			padding: 20px;
+			border: 2px solid #EEEEEE;
 		}
 		
 
