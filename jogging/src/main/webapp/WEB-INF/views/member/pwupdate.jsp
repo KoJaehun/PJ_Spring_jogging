@@ -19,7 +19,7 @@
 		}
 		body{
 			background-color: #FFFFFF;
-			font-size: 12px;
+			font-size: 14px;
 		}
 		ul{
 			list-style: none;

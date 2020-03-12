@@ -21,7 +21,8 @@
 		}
 		body{
 			background-color: #FFFFFF;
-			font-size: 12px;
+			font-size: 14px;
+			font-weight: bold;
 		}
 		ul{
 			list-style: none;

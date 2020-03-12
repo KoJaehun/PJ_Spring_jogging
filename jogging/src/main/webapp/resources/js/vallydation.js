@@ -301,6 +301,7 @@ var joinValidate = {
 
 		}
 	},
+	
 	checkNowpw : function(pw) {
 		var regEmpty = /\s/g; // 공백문자
 		
@@ -359,5 +360,6 @@ var joinValidate = {
 			}
 		});
 		return return_val;
-}
+	}
+	
 	

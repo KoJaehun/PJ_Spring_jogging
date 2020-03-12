@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 			overflow: auto;
 			width: 100%;
 			height: 100%;
-			display: none;
+			/* display: none; */
 			justify-content: center;
 			align-items: center;			
 		}
@@ -130,6 +131,8 @@
 				</div>					
 				<div class="content_foot">
 					<div class="modal_msg_cancel">닫기</div>
+					<div class="modal_msg_yes">닫기</div>
+					<div class="modal_msg_close">닫기</div>
 				</div>
 			</div>
 		</div>
@@ -142,23 +145,37 @@
 		var key='${key}';
 		
 		var join_main_txt = id+'님 회원가입을 축하드립니다.';
-		var join_sub_txt = email+'으로 인증메일을 보냈습니다. 인증하셔야만 사이트 활동이 가능합니다.';
+		var join_sub_txt = email+'으로 인증메일을 보냈습니다. 인증하셔야만 사이트 활동이 가능합니다.';				
 		var auth_main_txt = id+'님 이메일 인증되셨습니다.';
 		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다';
+		var drop_main_txt = '$[userid}님 정말 탈퇴하시겠습니까?';
+		var dropResult_main_txt = id+'님 탈퇴되었습니다. ';
+		var dropResult_sub_txt = '그동안 JOGGING을 이용해주셔서 감사합니다.';
 		
 		if(key == 'join') {
 			$('#modal_msg_main_txt').text(join_main_txt);
 			$('#modal_msg_sub_txt').text(join_sub_txt);
+			$('.modal_msg_yes').css('display', 'none')  // 확인버튼제거
+							   .text('확인');
 			
-			$('.modal_msg_wrap').css('display','flex');
+			$('.modal_msg_wrap').css('display','flex');  // 모달창 출력
 		} else if(key == 'auth') {
 			$('#modal_msg_main_txt').text(auth_main_txt);
 			$('#modal_msg_sub_txt').text(auth_sub_txt);
+			$('.modal_msg_yes').css('display', 'none')
+							   .text('확인');
 			
+			$('.modal_msg_wrap').css('display','flex');
+		}  else if(key == 'dropResult'){
+			$('#modal_msg_main_txt').text(dropResult_main_txt);
+			$('#modal_msg_sub_txt').text(dropResult_sub_txt);
+			$('.modal_msg_yes').css('display', 'none')
+							   .text('확인');
 			$('.modal_msg_wrap').css('display','flex');
 		}
 		
-		$('.modal_msg_cancel').on('click', function() {
+
+		$('.modal_msg_close').on('click', function() {
 			$('.modal_msg_wrap').css('display', 'none');
 		});
 		$('.modal_msg_cancel').on('click', function(){

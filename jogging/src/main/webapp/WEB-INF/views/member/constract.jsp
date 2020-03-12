@@ -27,6 +27,8 @@
 		}
 		body{
 			background-color: white;
+			
+			
 		}
 		ul{
 			list-style: none;

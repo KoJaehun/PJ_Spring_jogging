@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="../include/header.jsp" %>
+<%@ include file="../include/modal.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,10 +23,12 @@
 			text-decoration: none;
 		}
 		body, th, td, input, select, textarea, button {
-			font-size: 13px;
+			font-size: 14px;
 			font-family: 'Nanum Gothic', sans-serif;
+			font-weight: bold;
 			line-height: 1.5;
 			color: #333;
+			
 		}
 		.address, caption, cite, code, dfn, em, var{
 			font-style: normal;
@@ -75,7 +78,7 @@
 			width: 740px;
 			height: 120px;
 			margin-bottom: 30px;
-			padding: 25px 30px 20px 30px;
+			padding: 25px 30px 20px 20px;
 			overflow: hidden;
 			border: 1px solid #dfdfdf;
 			background-color: #fff;
@@ -131,6 +134,9 @@
 		.info_user > input:checked + label{
 			background-image: url('${path}/resources/img/checkbox333.png');
 		}
+		
+		.drop_err_msg{
+		}
 
 		/* 취소 확인 */
 		.btn_double_area{
@@ -155,6 +161,8 @@
 			height: 61px;
 			padding-top: 1px;
 			text-align: center;
+			cursor: no-drop;
+			
 		}
 		.btn_default{
 			color: #333;
@@ -166,6 +174,7 @@
 			/* border: 1px solid #1fbc02; */
 			background-color: black;
 			font-weight: bold;
+			
 		}
 		.usercheck{
 			
@@ -265,7 +274,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			/* display: none; */
+			display: none;
 		}
 		.modal_content{
 			display: flex;
@@ -362,6 +371,16 @@
 			padding: 10px;
 			font-weight: 600;
 		}
+		
+		.join_err_msg{
+			display: block;
+			margin: 9px 0 -2px;
+			font-size: 12px;
+			line-height: 14px;
+			color: red;
+			height: 15px;
+			/* visibility: hidden; */
+		}
 
 
 	</style>
@@ -389,8 +408,8 @@
 				
 
 				<div class="content_foot">
-					<div class="cancel">취소</div>
-					<div class="okay">확인</div>
+					<div class="modal_cancel">취소</div>
+					<div class="modal_okay">확인</div>
 				</div>
 
 
@@ -419,7 +438,7 @@
 				
 			</header>
 				
-			<section>
+			
 				<form>
 					<div class="info_agree">
 						
@@ -429,7 +448,7 @@
 								<em class="emph_g">아이디 재사용이나 복구가 불가능합니다.</em><br>
 								신중히 선택하신후 결정해주세요.
 							</span>
-							<input type="checkbox" id="cbox1">
+							<input type="checkbox" id="cbox1" class="ckboxs">
 						  			<label for="cbox1">
 
 							
@@ -439,7 +458,7 @@
 							<span class="txt_agree">내정보 및 개인형 서비스 이용기록이 모두 삭제되며,
 								<em class="emph_g">삭제된 데이터는 복구되지 않습니다.</em><br>
 							삭제되는 서비스를 확인하시고, 필요한 데이터는 미리 백업을 해주세요.</span>
-							<input type="checkbox" id="cbox2">
+							<input type="checkbox" id="cbox2" class="ckboxs">
 						  			<label for="cbox2">
 						</div>
 
@@ -449,20 +468,20 @@
 								비공개 처리하거나 삭제하시기 바랍니다.<br>
 							탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어,
 							<em class="emph_g">게시글을 임의로 삭제해드릴 수 없습니다.</em></span>
-							<input type="checkbox" id="cbox3">
+							<input type="checkbox" id="cbox3" class="ckboxs">
 						  			<label for="cbox3">
 						</div>
 
 
 					</div>
-					<div class="info_agree">
+					
 
 					<div class="usercheck">
 							<h1>회원정보 확인</h1>
 							<h1>회원님의 정보보호를 위해 현재 <em class="header_logo">비밀번호</em>를 확인해주세요.</h1>
 						</div>
 						
-					<form>
+					
 						<div class="id_section">
 							<div class="id_box">
 								<div class="id_input">andy0589@naver.com</div>
@@ -472,29 +491,30 @@
 								<fieldset class="pw_input_group">
 									<div class="wrapper">
 										<div>
-											<input placeholder="비밀번호">
+											<input id="upw" placeholder="비밀번호">
 										</div>
 									</div>
 								</fieldset>
 							</div>
+							<span class="join_err_msg">필수 정보입니다.</span>
 						</div>
 					</form>
 
 
 
-
+						<span class="join_err_msg">필수 정보입니다.</span>
 						<div class="btn_double_area">
-							<span><a href="#" class="btn_type btn_default">취소</a></span>
-							<span><a href="#" class="btn_type btn_agree">확인</a></span>
+							<button class="btn_type btn_default">취소</button>
+							<button class="btn_type btn_agree">확인</button>
 						</div>
 					</div>
 
 
 
 				
-			</form>
-			</div>
-		</section>
+			
+			
+		
 		
 
 
@@ -502,24 +522,102 @@
 
 
 
-		</div>
+		
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="${path}/resources/js/vallydation.js"></script>
 <script type="text/javascript">
+$(function(){
+	var checkArr = new Array(2).fill(false);
+	
+	$('#upw').keyup(function(){
+		var pw = $(this).val();
+		// console.log(pw);
+		// return 4개중에 1개
+		var result = joinValidate.checkNowpw(pw);
+		console.log(result.code +","+result.desc)
 		
-		$(document).on('click', '.btn_agree', function(){
-		$('.modal_wrap').css('display', 'flex');
+		if(result.code == 100) {
+			color = '#3885CA';
+			checkArr[0] = true;
+		} else {
+			color = '#d95339';
+		}
+		$('.join_err_msg:eq(0)').css('visibility', 'visible')
+								.text(result.desc)
+								.css('color', color);
 	});
-
-		
-
-		$(document).on('click', '.cancel', function(){
-		$('.modal_wrap').css('display', 'none');
-		
-		
-
+	
+	$('.ckboxs').click(function(){
+		var ckLen = $('.ckboxs:checkbox:checked').length;
+		if(ckLen == 3) {
+			checkArr[1] = true;
+			$('.join_err_msg:eq(1)').css('visibility', 'hidden');
+		} else {
+			checkArr[1] = false;
+		}
+		ckColorBtn();
 	});
+	
+	function ckColorBtn() {
+		var checkAll = true;
+		
+		for(var i = 0; i < checkArr.length; i++) {
+			if(!checkArr[i]) {
+				checkAll = false;
+			}
+		}
+		if(checkAll) {
+			$('.btn_agree').addClass('btn-primary');
+			$('.btn_agree').css('cursor', 'pointer');
+		} else {
+			$('.btn_agree').addClass('btn-primary');
+			$('.btn_agree').css('cursor', 'pointer');
+		}
+		
+	}
+	
+	$('.btn_agree').click(function(){
+		var checkAll = true;
+		for(var i=0; i < checkArr.length; i++){
+			if(checkArr[i] == false) {
+				$('.join_err_msg:eq('+i+')').css('visibility', 'visible');
+				checkAll = false;
+			}
+		}
+		
+		if(checkAll) {
+			$('.modal_wrap').css('display', 'flex');
+		} else {
+			return false;
+		}
+	});
+	$('.modal_okay').click(function(){
+		location.href='${path}/member/dropAction';		
+	});
+	
+	
+});	
+	
+	
 
+
+
+
+
+
+
+/* 	$(document).on('click', '.btn_agree', function(){
+	$('.modal_wrap').css('display', 'flex');
+});
+
+	
+
+	$(document).on('click', '.cancel', function(){
+	$('.modal_wrap').css('display', 'none');
+	
+	
+
+}); */
 </script>
-
 </html>

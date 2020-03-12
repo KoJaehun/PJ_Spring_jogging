@@ -262,14 +262,23 @@ public class MemberController {
 		
 	}
 	@GetMapping("/drop")
-	public String drop() {
-		
+	public String memdrop(Model model) {
+		log.info(">>>> GET : Member Drop page");
+		model.addAttribute("key", "drop");
 		return "member/drop";
+	}
+	@GetMapping("/dropAction")
+	public String memDrop(HttpSession session) {
+		log.info(">>>> GET : Member Drop Action");
+		String id = (String)session.getAttribute("userid");
+		
+		mService.memDrop(session, id);
+		return "redirect:/";
 	}
 	
 	@GetMapping("/mypage")
 	public String mypage() {
-		
+		log.info(">>>> GET : Member My page");
 		return "member/mypage";
 	}
 	

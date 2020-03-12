@@ -6,7 +6,7 @@
 <html>
 <head>
 	<title>my page</title>
-	<link rel="icon" type="image/png" href="../img/NAVERCloud/naversm.png">
+	<link rel="icon" type="image/png" href="{path}/resources/img/NAVERCloud/naversm.png">
 	<script src="https://kit.fontawesome.com/2518bc55d6.js" crossorigin="anonymous"></script>
 	<style type="text/css">
 		*{
@@ -19,7 +19,8 @@
 		}
 		body{
 			background-color: #FFFFFF;
-			font-size: 12px;
+			font-size: 14px;
+			font-weight: bold;
 		}
 		ul{
 			list-style: none;
@@ -212,9 +213,9 @@
 						
 
 						<div class="btn_double_area">
-							<button type="button" class="btn_type btn_infoup">회원정보수정</button>
-							<button type="button" class="btn_type btn_pwup" id="btn_join">비밀번호변경</button>
-							<button type="button" class="btn_type btn_out" id="btn_join">회원탈퇴</button>
+							<button type="button" class="btn_type btn_infoup" id="mypage_btn_update">회원정보수정</button>
+							<button type="button" class="btn_type btn_pwup" id="mypage_btn_pwupdate">비밀번호변경</button>
+							<button type="button" class="btn_type btn_out" id="mypage_btn_drop">회원탈퇴</button>
 						</div>
 
 						<div class="mypage_line">
@@ -225,12 +226,25 @@
 		</form:form>
 	</section>
 
-	</div>
+
 </body>
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="${path}/resources/js/vallydation.js"></script>
 
 <script type="text/javascript">
 
+	$(document).on('click', '#mypage_btn_update', function() {
+		location.href="${path}/member/update";
+	});
+	$(document).on('click', '#mypage_btn_pwupdate', function() {
+		location.href="${path}/member/pwupdate";
+	});
+	$(document).on('click', '#mypage_btn_drop', function() {
+		location.href="${path}/member/drop";
+	});
 </script>
+
 </html>
