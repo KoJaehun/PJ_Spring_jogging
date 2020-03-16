@@ -14,7 +14,7 @@
 			overflow: auto;
 			width: 100%;
 			height: 100%;
-			/* display: none; */
+			display: none;
 			justify-content: center;
 			align-items: center;			
 		}
@@ -131,8 +131,7 @@
 				</div>					
 				<div class="content_foot">
 					<div class="modal_msg_cancel">닫기</div>
-					<div class="modal_msg_yes">닫기</div>
-					<div class="modal_msg_close">닫기</div>
+					
 				</div>
 			</div>
 		</div>

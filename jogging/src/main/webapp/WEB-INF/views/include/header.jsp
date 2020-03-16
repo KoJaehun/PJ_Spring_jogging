@@ -192,7 +192,7 @@
 			display: none;
 			justify-content: center;
 			align-items: center;
-			/* display: none; */
+			
 		}
 		.modal_content{
 			position: relative;
@@ -704,9 +704,7 @@ div#content_layout{
 								<ul class="header_dropdown_menu">
 								<li><a href="#">구매내역</a></li>
 								<li><a href="#">위시리스트</a></li>
-								<c:if test="${not empty userid}">
-									<li><a href="${path}/member/mypage">내 정보</a></li>									
-								</c:if>
+								<li><a href="${path}/member/mypage">내 정보</a></li>									
 								<li><a href="#">고객센터</a></li>
 							</ul>
 							</div>
@@ -738,6 +736,18 @@ div#content_layout{
 </body>
 
 <script type="text/javascript">
+	$(function(){
+		var message = '${message}';
+		if(message == 'nologin') {
+			$('.modal_wrap').css('display', 'flex');
+			$('#login_id').focus();
+			$('.err_content').css('display', 'block')
+							 .text('로그인이 필요한 기능입니다.');
+		}
+	})
+
+
+
 	// jQuery 문법
 	// $('선택자').옵션();
 	// $('#test').css('color','green');
