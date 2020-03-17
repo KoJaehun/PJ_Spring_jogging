@@ -10,7 +10,7 @@ body{
 	font-size: 14px;
 	color: #2F3138;
 }
-ul{
+body, form, li, ul{
 	margin: 0;
 	padding: 0;
 	list-style: none;
