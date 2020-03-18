@@ -226,11 +226,11 @@
 		border-top: 1px solid #e8e8e8;
 	}
 	
-	/* 새로운글 애니메이션 */
+	/* 좋아요 애니메이션 */
 	
 	.new_animation{
 		font-size: 13px;
-		color: orangered;
+		color: red;
 		font-weight: bold;
 		/* 설정할 애니메이션 이름 */
 		animation-name: twinkle;
@@ -248,7 +248,7 @@
 		to      {opacity: 1} */
 	}
 	
-	/* 깜빡깜빡 애니메이션 */
+	/* 깜빡깜빡 애니메이션 (new) */
 	.twincle_eff{
 		animation-name: twinkle;
 		animation-duration: 1.2s;

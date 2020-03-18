@@ -1,6 +1,8 @@
 package com.jogging.service.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,18 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public List<BoardDTO> ListAll() {
+	public List<BoardDTO> ListAll(int start, int end) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
 		
+		return bDao.listAll(map);
+	}
+
+	@Override
+	public int countArticle() {
 		
-		
-		return bDao.listAll();
+		return bDao.countArticle();
 	}
 	
 	
