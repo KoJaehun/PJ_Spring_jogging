@@ -70,7 +70,7 @@
 			padding: 30px 30px 20px;
 			overflow: hidden;
 			border-top: 1px solid #e1e1e1;
-			border-bottom: 1px solid #e1e1e1;
+			/* border-bottom: 1px solid #e1e1e1; */
 			background-color: #FFFFFF;
 		}
 		.info_agree .info_user{
@@ -178,19 +178,21 @@
 		}
 		.usercheck{
 			
-			
+			border-top: 1px solid #e1e1e1;
 			border-bottom: 1px solid #e1e1e1;
 			margin-top: -20px;
 			padding: 10px 0px 17px 0px;
-
-
 		}
+		
 		.usercheck h1{
 			display: block;
 			font-weight: bold;
 			font-size: 19px;
 			text-align: center;
 			
+		}
+		.usercheck h1:nth-child(1){
+			margin-top: 6px;	
 		}
 		.id_section{
 			text-align: center;
@@ -476,7 +478,7 @@
 					</div>
 					
 
-					<div class="usercheck">
+					<div class="usercheck"> 
 							<h1>회원정보 확인</h1>
 							<h1>회원님의 정보보호를 위해 현재 <em class="header_logo">비밀번호</em>를 확인해주세요.</h1>
 						</div>

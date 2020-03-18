@@ -175,6 +175,8 @@
 		display: flex;
 		justify-content: space-between;
 		font-weight: bold;
+		font-size: 14px;
+		
 	}
 	/* 글쓰기 */
 	.board_txt{
@@ -182,6 +184,11 @@
 		color: white;
 		padding: 10px;
 		background-color: black;
+	}
+	.board_txt:hover{
+		background-color: red;
+		color: white;
+		
 	}
 	/* 
 	.board_txt a{
@@ -220,9 +227,7 @@
 	}
 	
 	/* 새로운글 애니메이션 */
-	{
-		
-	}
+	
 	.new_animation{
 		font-size: 13px;
 		color: orangered;
@@ -242,12 +247,32 @@
 		/* from    {opacity: 0;}
 		to      {opacity: 1} */
 	}
-
+	
+	/* 깜빡깜빡 애니메이션 */
+	.twincle_eff{
+		animation-name: twinkle;
+		animation-duration: 1.2s;
+		animation-iteration-count: infinite;
+	}
+	@keyframes twinkle {
+		0%		{opacity: 0;}
+		100% 	{opacity: 1;}
+	}
+	
+	.new_color{
+		color: tomato;
+		margin-left: 7px;
+		font-weight: bold;
+		font-size: 12px;
+	}
 </style>
 </head>
 
 <body>
+	<jsp:useBean id="now" class="java.util.Date"/>
+	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 	<div class="wrap">
+		<div class="block_line"></div>
 		<div class="board_main">게시판</div>
 		<div class="block_line"></div>
 		<div class="board_title">
@@ -277,62 +302,43 @@
 						<tr>
 							<th style="width:10%" scope="col">번호</th>
 							<th scope="col">제목</th>
+							<th style="width:10%" scope="col"></th>
 							<th style="width:10%" scope="col">작성자</th>
 							<th style="width:10%"scope="col">작성일자</th>
 							<th style="width:10%"scope="col">조회수</th>
 							<th style="width:10%"scope="col">첨부파일</th>
 						</tr>
 					</thead>
-					<tbody class="table_body">
-						<tr>
-							<td >6</td>
-							<td class="body_txtleft"><a href="#">내용  </a><span class="new_animation"><i class="fas fa-heart"></i></span></td>
-							<td >고사장</td>
-							<td >2020-03-17</td>
-							<td >0</td>
-							<td><i class="far fa-file"></i></td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td class="body_txtleft"><a href="#">내용  </a><span class="new_animation"><i class="fas fa-heart"></i></span></td>
-							<td>조사장</td>
-							<td>2020-03-17</td>
-							<td>0</td>
-							<td><i class="far fa-file"></i></td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td class="body_txtleft"><a href="#">내용</a></td>
-							<td>김사장</td>
-							<td>2020-03-17</td>
-							<td>0</td>
-							<td><i class="far fa-file"></i></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td class="body_txtleft"><a href="#">내용</a></td>
-							<td>오사장</td>
-							<td>2020-03-17</td>
-							<td>0</td>
-							<td><i class="far fa-file"></i></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td class="body_txtleft"><a href="#">내용</a></td>
-							<td>정사장</td>
-							<td>2020-03-17</td>
-							<td>0</td>
-							<td><i class="far fa-file"></i></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td class="body_txtleft"><a href="#">내용</a></td>
-							<td>박사장</td>
-							<td>2020-03-17</td>
-							<td>0</td>
-							<td><i class="far fa-file"></i></td>
-						</tr>
-					</tbody>
+					<!-- 게시글 -->
+					<c:forEach items="${map.list}" var="list">
+						
+						<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
+						<tbody class="table_body">
+							<tr>
+								<td >${list.bno}</td>
+								<td class="body_txtleft">
+									<a href="${path}/board/view?bno=${list.bno}"> ${list.title} <i class="far fa-comment"></i> (${list.replycnt}) </a>
+									<c:if test="${today == regdate}">
+										<span class="new_color twincle_eff">NEW</span>
+									</c:if>
+									</td>
+								<td><a href="#"><span class="new_animation"><i class="fas fa-heart"></i></span></a> ${list.goodcnt}</td>
+								<td>${list.writer}</td>
+								<td class="regdate">
+								<c:choose>
+									<c:when test="${today == regdate}">
+										<fmt:formatDate value="${list.updatedate}" pattern="HH:mm:ss"/>
+									</c:when>
+									<c:otherwise>
+										<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd"/>
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td>${list.viewcnt}</td>
+								<td><i class="far fa-file"></i></td>
+							</tr>					
+						</tbody>
+					</c:forEach>
 				</table>		
 			</div>
 			
@@ -348,9 +354,7 @@
 						<li id="pagination_end"><a href="#"><i class="fas fa-angle-right"></i></a></li>
 					</ul>
 				</div>
-				<div class="board_txt">
-					<a class="txt_background" href="#">글쓰기</a>
-				</div>
+				<a class="txt_background" href="#"><div class="board_txt">글쓰기</div></a>
 			</div>
 
 			<div class="block_line"></div>
