@@ -54,8 +54,8 @@
 		padding-top: 13px;
 		padding-right: 16px;
 		padding-left: 16px;
-		background-color: black;
-		color: #FFFFFF;
+		background-color: #FFFFFF;
+		color: #333;
 		font-weight: bold;
 		font-size: 14px;
 		
@@ -216,6 +216,9 @@
 		margin: 0 10px;
 		font-size: 14px;
 	}
+	#check_color{
+		color: red;
+	}
 	
 	/* 페이지네이션 끝 */
 	
@@ -228,18 +231,21 @@
 	
 	/* 좋아요 애니메이션 */
 	
+	
 	.new_animation{
 		font-size: 13px;
 		color: red;
 		font-weight: bold;
+		
 		/* 설정할 애니메이션 이름 */
 		animation-name: twinkle;
 		/* 애니메이션 반복 횟수 */
 		animation-iteration-count: infinite;
 		/* 애니메이션 실행 시간 */
 		animation-duration: 1.2s;
+		
 	}
-
+	
 	@keyframes twinkle{
 		0%		{opacity: 0;}
 		100%	{opacity: 1;}
@@ -247,6 +253,7 @@
 		/* from    {opacity: 0;}
 		to      {opacity: 1} */
 	}
+	 
 	
 	/* 깜빡깜빡 애니메이션 (new) */
 	.twincle_eff{
@@ -265,6 +272,19 @@
 		font-weight: bold;
 		font-size: 12px;
 	}
+	/* 네비 버튼 애니메이션 */
+	.cool_link:after{
+		content: '';
+		display: block;
+		width: 0;
+		height: 2px;
+		background-color: #fff;
+		transition: width 0.5s;
+			
+	}
+	.cool_link:hover:after{
+		width: 100%;
+	}
 </style>
 </head>
 
@@ -277,21 +297,20 @@
 		<div class="block_line"></div>
 		<div class="board_title">
 			<div class="board_nav">
-				<span class="nav_btn"><a href="#">최신순</a></span>
-				<span class="nav_btn"><a href="#">추천순</a></span>
-				<span class="nav_btn"><a href="#">댓글순</a></span>
-				<span class="nav_btn"><a href="#">조회순</a></span>
+				<span class="nav_btn cool_link"><a href="${path}/board/list?sort_option=new&keyword=${map.keyword}" id="sort_new">최신순</a></span>
+				<span class="nav_btn cool_link"><a href="${path}/board/list?sort_option=good&keyword=${map.keyword}" id="sort_good">추천순</a></span>
+				<span class="nav_btn cool_link"><a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply">댓글순</a></span>
+				<span class="nav_btn cool_link"><a href="${path}/board/list?sort_option=cnt&keyword=${map.keyword}" id="sort_cnt">조회순</a></span>
 			</div>
 
 
 			<div class="board_content_search">
-				
-					<div class="board_content_search_group">
+				<div class="board_content_search_group">
+					<form action="${path}/board/list" method="GET">
 						<input type="text" placeholder="게시글 검색" name="keyword" class="board_content_search_input"> 
-							<button type="button" class="board_content_search_btn">
-								<i class="fas fa-search"></i>
-							</button>
-					</div>
+						<button type="button" class="board_content_search_btn"><i class="fas fa-search"></i></button>
+					</form>
+				</div>
 				
 			</div>
 		</div>
@@ -304,9 +323,9 @@
 							<th scope="col">제목</th>
 							<th style="width:10%" scope="col"></th>
 							<th style="width:10%" scope="col">작성자</th>
-							<th style="width:10%"scope="col">작성일자</th>
-							<th style="width:10%"scope="col">조회수</th>
-							<th style="width:10%"scope="col">첨부파일</th>
+							<th style="width:10%" scope="col">작성일자</th>
+							<th style="width:10%" scope="col">조회수</th>
+							<th style="width:10%" scope="col">첨부파일</th>
 						</tr>
 					</thead>
 					<!-- 게시글 -->
@@ -317,12 +336,15 @@
 							<tr>
 								<td >${list.bno}</td>
 								<td class="body_txtleft">
-									<a href="${path}/board/view?bno=${list.bno}"> ${list.title} <i class="far fa-comment"></i> (${list.replycnt}) </a>
+									<a href="${path}/board/view?bno=${list.bno}"> ${list.title}</a>
 									<c:if test="${today == regdate}">
 										<span class="new_color twincle_eff">NEW</span>
 									</c:if>
-									</td>
-								<td><a href="#"><span class="new_animation"><i class="fas fa-heart"></i></span></a> ${list.goodcnt}</td>
+								</td>
+								<td>
+								<a href="#"><i class="far fa-comment"></i></a> ${list.replycnt} 
+								<a href="#"><i style="color:red" class="fas fa-heart"></i></a> ${list.goodcnt}
+								</td>
 								<td>${list.writer}</td>
 								<td class="regdate">
 								<c:choose>
@@ -345,13 +367,35 @@
 			<div class="board_page_write">
 				<div class="board_page">
 					<ul>
-						<li id="pagination_start"><a href="#"><i class="fas fa-angle-left"></i></a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li id="pagination_end"><a href="#"><i class="fas fa-angle-right"></i></a></li>
+					
+					<li id="pagination_start">
+					<c:if test="${map.pager.curBlock > 1}">
+						<li><a href="${path}/board/list?curPage=${map.pager.blockBegin-10}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="page_left"><i class="fas fa-angle-left"></i></a></li>
+						<li><a href="${path}/board/list?curPage=1&sort_option=${map.sort_option}&keyword=&{map.keyword}" class="">1</a></li>
+						<li><span>...</span></li>
+					</c:if>
+					</li>
+					
+						<c:forEach var="num" begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}">
+						<c:choose>
+							<c:when test="${num == map.pager.curPage}">
+								<li><a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}" id="check_color">${num}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}">${num}</a></li>
+							</c:otherwise>
+						</c:choose>
+						</c:forEach>
+						
+						
+					<li id="pagination_end">
+						<c:if test="${map.pager.curBlock < map.pager.totBlock}">
+							<span>...</span>
+							<li><a href="${path}/board/list?curPage=${map.pager.totPage}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="">${map.pager.totPage}</a></li>
+							<li><a href="${path}/board/list?curPage=${map.pager.blockEnd + 1}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="page_right"><i class="fas fa-angle-right"></i></a></li>
+						</c:if>	
+					</li>
+					
 					</ul>
 				</div>
 				<a class="txt_background" href="#"><div class="board_txt">글쓰기</div></a>
@@ -359,10 +403,29 @@
 
 			<div class="block_line"></div>
 	</div>
+	
+
 
 
 
 
 
 </body>
+<script type="text/javascript">
+	$(function(){
+		var sort_option = '${map.sort_option}';
+		
+		if(sort_option == 'new'){
+			$('#sort_new').css('color', '#FFD700');
+		} else if(sort_option == 'good'){
+			$('#sort_good').css('color', '#FFD700');
+		} else if(sort_option == 'cnt'){
+			$('#sort_cnt').css('color', '#FFD700');
+		} else if(sort_option == 'reply'){
+			$('#sort_reply').css('color', '#FFD700');
+		}
+	});
+
+</script>
+
 </html>

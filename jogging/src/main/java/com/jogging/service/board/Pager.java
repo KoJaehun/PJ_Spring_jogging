@@ -94,6 +94,7 @@ public class Pager {
 	public void setTotPage(int count) {
 		// Math.ceil() 올림
 		totPage = (int)Math.ceil(count*1.0 / PAGE_SCALE);
+		
 	}
 
 	public int getTotBlock() {
