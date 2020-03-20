@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<style type="text/css">
+		
+		.body{
+			font-family: 'Nanum Gothic', sans-serif;
+		
+		}
+		
 		.modal_msg_wrap{
 			position: fixed;
 			z-index: 1001;

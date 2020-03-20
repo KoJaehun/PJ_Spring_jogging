@@ -21,7 +21,11 @@
 	}
 	body{
 		background-color: #FFFFFF;
-		font-size: 12px;
+		font-family: Verdana, sans-serif;
+		font-size: 14px;
+		color: #2F3138;
+		margin: 0;
+		padding: 0;
 		text-algin: center;
 	}
 	ul{
@@ -36,6 +40,7 @@
 		margin: 100px auto;
 	}
 	.board_main{
+		margin: 20px;
 		display: block;
 		text-align: center;
 		font-size: 27px;
@@ -103,7 +108,34 @@
 	
 	/* 테이블 상단 네비, 검색 끝 */
 
-
+	/* 검색결과 표시 */
+	.search_result{
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		height: 20px;
+		line-height: 19px;
+		background-color: #FFFFFF;
+		color: #333;
+		font-weight: bold;
+		font-size: 14px;
+		text-align: center;
+	}
+	.search_result span{
+		display: block;
+	}
+	.result_red{
+		color:red;
+	}
+	
+	.clear_button{
+		padding: 0 5px;
+		margin-left: 10px;
+		border: 1px solid #333;
+		text-align: center;
+		
+	}
+	
 
 	/* 테이블 */
 	table{
@@ -278,13 +310,14 @@
 		display: block;
 		width: 0;
 		height: 2px;
-		background-color: #fff;
-		transition: width 0.5s;
+		background-color: #FFD700;
+		transition: width 0.8s;
 			
 	}
 	.cool_link:hover:after{
 		width: 100%;
 	}
+	
 </style>
 </head>
 
@@ -311,9 +344,19 @@
 						<button type="button" class="board_content_search_btn"><i class="fas fa-search"></i></button>
 					</form>
 				</div>
-				
 			</div>
 		</div>
+		<div class="block_line"></div>
+		<div class="search_result">
+			<c:if test="${!empty map.keyword}">
+				<span>"<em class="result_red">${map.keyword}</em> "검색결과 "<em class="result_red">${map.count} </em>"건 검색되었습니다.</span>
+				<a href="${path}/board/list"><div class="clear_button">CLEAR</div></a>
+			</c:if>
+			
+		</div>
+		
+			
+		
 		
 			<div class="board_content">
 				<table border="1">

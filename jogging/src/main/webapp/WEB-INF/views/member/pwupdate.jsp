@@ -20,6 +20,11 @@
 		body{
 			background-color: #FFFFFF;
 			font-size: 14px;
+			color: #2F3138;
+			margin: 0;
+			padding: 0;
+			
+			
 		}
 		ul{
 			list-style: none;

@@ -14,6 +14,11 @@
 	<style type="text/css">
 		body{
 			background-color: white;
+			font-family: 'Nanum Gothic', sans-serif;
+			font-size: 14px;
+			color: #2F3138;
+			margin: 0;
+			padding: 0;
 		}
 		div.header_wrap{
 			position: fixed;
@@ -41,7 +46,7 @@
 
 		}
 		.header_content_search {
-			margin-top: 15px;
+			
 			padding: 0px;
 		}
 		.header_content_search_group{
@@ -685,6 +690,7 @@ div#content_layout{
 							</div>
 						</div>
 					</div>
+					
 				</div>
 				<div class="header_content_search">
 					<form name="" action="" method="GET">
@@ -695,7 +701,22 @@ div#content_layout{
 						 </div>
 					</form>
 				</div>
+			
 				<div class="header_content_member">
+					<div class="header_content_dropdown_wrap">
+						<div class="header_content_dropdown_group">
+							<a href="#">커뮤니티</a>
+							<div class="header_dropdown">
+								<div class="arrow"></div>
+									<ul class="header_dropdown_menu">
+									<li><a href="#">공지사항</a></li>
+									<li><a href="#">Q&A</a></li>
+									<li><a href="#">자유게시판</a></li>									
+									<li><a href="#">후기게시판</a></li>
+									</ul>
+							</div>
+						</div>
+					</div>
 					<div class="header_content_dropdown_wrap">
 						<div class="header_content_dropdown_group">
 							<a href="#">마이페이지</a>

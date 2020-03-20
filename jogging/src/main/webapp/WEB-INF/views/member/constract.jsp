@@ -26,7 +26,12 @@
 			
 		}
 		body{
-			background-color: white;
+			background-color: #FFFFFF;
+			font-family: 'Nanum Gothic', sans-serif;
+			font-size: 14px;
+			color: #2F3138;
+			margin: 0;
+			padding: 0;
 			
 			
 		}

@@ -15,9 +15,15 @@
 			line-height: normal;
 		}
 		
-		body {font-family: Verdana, sans-serif;
+		body {
+			font-family: 'Nanum Gothic', sans-serif;
+			font-size: 14px;
+			color: #2F3138;
+			margin: 0;
+			padding: 0;
 		}
-		img {vertical-align: middle;
+		img {
+		vertical-align: middle;
 		}
 		div {
 			/* border: 1px solid red; */

@@ -16,8 +16,14 @@
 			
 		}
 		body, ul, h1, h2, h3, h4, h5, h6{
+			background-color: #FFFFFF;
+			font-family: 'Nanum Gothic', sans-serif;
+			font-size: 14px;
+			color: #2F3138;
 			margin: 0;
 			padding: 0;
+			
+			
 		}
 		a{
 			text-decoration: none;
@@ -67,7 +73,7 @@
 			padding: 0;
 		}
 		.info_agree{
-			padding: 30px 30px 20px;
+			padding: 30px 30px 25px;
 			overflow: hidden;
 			border-top: 1px solid #e1e1e1;
 			/* border-bottom: 1px solid #e1e1e1; */
@@ -142,6 +148,8 @@
 		.btn_double_area{
 			margin: 30px -5px 0px;
 			overflow: hidden;
+			display: flex;
+			justify-content: space-around;
 			
 		}
 		.btn_double_area > span{
@@ -151,7 +159,7 @@
 			
 		}
 		.btn_type{
-			width: auto;
+			width: 50%;
 			margin: 0px 5px;
 			font-size: 20px;
 			font-weight: 600;

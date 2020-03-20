@@ -19,8 +19,15 @@
 		}
 		body{
 			background-color: #FFFFFF;
+			font-family: 'Nanum Gothic', sans-serif;
 			font-size: 14px;
 			font-weight: bold;
+			color: #2F3138;
+			margin: 0;
+			padding: 0;
+			
+			
+			
 		}
 		ul{
 			list-style: none;
