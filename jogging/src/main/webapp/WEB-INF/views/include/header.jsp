@@ -711,7 +711,7 @@ div#content_layout{
 									<ul class="header_dropdown_menu">
 									<li><a href="#">공지사항</a></li>
 									<li><a href="#">Q&A</a></li>
-									<li><a href="#">자유게시판</a></li>									
+									<li><a href="${path}/board/list">자유게시판</a></li>									
 									<li><a href="#">후기게시판</a></li>
 									</ul>
 							</div>

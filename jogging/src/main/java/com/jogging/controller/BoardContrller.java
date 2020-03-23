@@ -3,6 +3,8 @@ package com.jogging.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +58,20 @@ public class BoardContrller {
 		model.addAttribute("map", map);
 		
 		return "board/list";
+	}
+	
+	@GetMapping("/view")
+	public String view(HttpServletRequest request, Model model) {
+		log.info(">>>> GET : BOARD DEATIL PAGE");
+		
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		BoardDTO bDto=bService.view(bno);
+		
+		log.info(bDto.toString());
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("one", bDto);
+		model.addAttribute("map",map);
+		return "board/view";
 	}
 
 }
