@@ -300,13 +300,13 @@
 		
 		<div class="content_nav">
 			<div class="left_button nav_flex">
-				<a href="#"><div class="nav_btn grey">목록</div></a>
+				<a href="${header.referer}"><div class="nav_btn grey">목록</div></a>
 				<a href="#"><div class="nav_btn white">답변</div></a>
 			</div>
 			
 			<c:if test="${name == one.writer}">
 				<div class="right_button nav_flex">
-					<a href="#"><div class="nav_btn white">수정</div></a>
+					<a href="#"><div class="nav_btn white" id="btn_view_update">수정</div></a>
 					<a href="#"><div class="nav_btn black" id="btn_view_delete">삭제</div></a>
 				</div>
 			</c:if>
