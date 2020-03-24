@@ -258,7 +258,7 @@
 </head>
 
 <body>
-
+	<%@ include file="../include/modal.jsp" %>
 	<div class="wrap">
 		<div class="block_line"></div>
 		<div class="board_main">상세게시글</div>
@@ -307,7 +307,7 @@
 			<c:if test="${name == one.writer}">
 				<div class="right_button nav_flex">
 					<a href="#"><div class="nav_btn white">수정</div></a>
-					<a href="#"><div class="nav_btn black">삭제</div></a>
+					<a href="#"><div class="nav_btn black" id="btn_view_delete">삭제</div></a>
 				</div>
 			</c:if>
 		</div>
@@ -349,6 +349,18 @@
 		
 		
 	</div>
-
 </body>
+<script type="text/javascript">
+$(function(){
+
+	//삭제 버튼 클릭시 모달창 Open
+	$('#btn_view_delete').click(function(){
+		$('.modal_msg_wrap').css('display', 'flex');
+	});
+	// 삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
+	$('.modal_msg_yes').click(function(){
+		location.href='${path}/board/delete?bno=${one.bno}';
+	});
+});
+</script>
 </html>

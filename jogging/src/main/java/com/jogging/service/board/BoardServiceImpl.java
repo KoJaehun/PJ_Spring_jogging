@@ -83,6 +83,11 @@ public class BoardServiceImpl implements BoardService{
 		
 
 	}
+
+	@Override
+	public void delBoard(int bno) {
+		bDao.delBoard(bno);
+	}
 	
 	
 	

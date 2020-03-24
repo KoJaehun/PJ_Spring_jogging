@@ -136,7 +136,8 @@
 					<div><h3 id="modal_msg_sub_txt"></h3></div>	
 				</div>					
 				<div class="content_foot">
-					<div class="modal_msg_cancel">닫기</div>
+					<button class="modal_msg_yes">확인</button>
+					<button class="modal_msg_cancel">닫기</button>
 					
 				</div>
 			</div>
@@ -156,6 +157,10 @@
 		var drop_main_txt = '$[userid}님 정말 탈퇴하시겠습니까?';
 		var dropResult_main_txt = id+'님 탈퇴되었습니다. ';
 		var dropResult_sub_txt = '그동안 JOGGING을 이용해주셔서 감사합니다.';
+		
+		var dropBoard_main_txt = '게시글을 삭제하시겠습니까?';
+		var dropBoardNo_main_txt = '댓글이 있는 게시글은 삭제할 수 없습니다.';
+				
 		
 		if(key == 'join') {
 			$('#modal_msg_main_txt').text(join_main_txt);
@@ -177,9 +182,19 @@
 			$('.modal_msg_yes').css('display', 'none')
 							   .text('확인');
 			$('.modal_msg_wrap').css('display','flex');
+		} else if(key == 'dropBoard') {		
+			if('${one.replycnt}' == 0) {	// 댓글이 없는 경우				
+				$('#modal_msg_main_txt').text(dropBoard_main_txt);				
+			} else {				
+				$('#modal_msg_main_txt').text(dropBoardNo_main_txt);
+				$('#modal_msg_yes').css('display', 'none');
+				$('#modal_msg_cancle').text('확 인');
+				
+			}
 		}
 		
-
+		
+		
 		$('.modal_msg_close').on('click', function() {
 			$('.modal_msg_wrap').css('display', 'none');
 		});
