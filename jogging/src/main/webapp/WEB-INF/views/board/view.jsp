@@ -267,20 +267,20 @@
 
 		<div class="board_title">
 			<div class="board_title_content">
-				<div class="title_bold title_left">${map.one.title}</div>
+				<div class="title_bold title_left">${one.title}</div>
 					<div class="title_right side_box">							
-						<span><i class="far fa-eye"></i> ${map.one.viewcnt} </span>
-						<span><i class="far fa-comment"></i> ${map.one.replycnt} </span>
-						<span><i style="color: red" class="fas fa-heart"></i> ${map.one.goodcnt} </span>							
+						<span><i class="far fa-eye"></i> ${one.viewcnt} </span>
+						<span><i class="far fa-comment"></i> ${one.replycnt} </span>
+						<span><i style="color: red" class="fas fa-heart"></i> ${one.goodcnt} </span>							
 					</div>					
 			</div>
 		</div>
 		<div class="board_title space">
 			<div class="board_title_content">
-				<div class="title_bold title_left">${map.one.writer}</div>
+				<div class="title_bold title_left">${one.writer}</div>
 				<div style="display: flex;">
 					<div class="title_right side_box">
-						<fmt:formatDate value="${map.one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>						
+						<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>						
 						<span>${regdate}</span>
 					</div>				
 				</div>
@@ -291,8 +291,10 @@
 		<div class="board_content">
 			<div class="board_content_review">
 				<div class="board_content_content">
-					<div class="board_writer_content">${map.one.content}</div>
+					<div class="board_writer_content">${one.content}</div>
+					
 				</div>
+				<a href="#" class="good_box"><i style="color: red" class="fas fa-heart"></i></a>
 			</div>
 		</div>
 		
@@ -301,10 +303,13 @@
 				<a href="#"><div class="nav_btn grey">목록</div></a>
 				<a href="#"><div class="nav_btn white">답변</div></a>
 			</div>
-			<div class="right_button nav_flex">
-				<a href="#"><div class="nav_btn white">수정</div></a>
-				<a href="#"><div class="nav_btn black">삭제</div></a>
-			</div>
+			
+			<c:if test="${name == one.writer}">
+				<div class="right_button nav_flex">
+					<a href="#"><div class="nav_btn white">수정</div></a>
+					<a href="#"><div class="nav_btn black">삭제</div></a>
+				</div>
+			</c:if>
 		</div>
 
 		
@@ -331,7 +336,6 @@
 			<div class="reply_content">
 				<div class="reply_writer"><span>작성자</span><span>작성시간</span></div>
 				<div class="reply_txt"><span>내용</span></div>
-				<a href="#" class="good_box"><i style="color: red" class="fas fa-heart"></i></a>
 				<div class="reply_update">
 					<a href="#"><div class="reply_update_update">수정</div></a>
 					<a href="#"><div class="reply_update_delete">삭제</div></a>

@@ -3,12 +3,13 @@ package com.jogging.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -60,6 +61,7 @@ public class BoardContrller {
 		return "board/list";
 	}
 	
+	/* 
 	@GetMapping("/view")
 	public String view(HttpServletRequest request, Model model) {
 		log.info(">>>> GET : BOARD DEATIL PAGE");
@@ -71,6 +73,22 @@ public class BoardContrller {
 		HashMap<String,Object> map = new HashMap<>();
 		map.put("one", bDto);
 		model.addAttribute("map",map);
+		return "board/view";
+	}
+	*/
+	
+	@GetMapping("/view/{bno}")
+	public String view(@PathVariable(value="bno") int bno, 
+						Model model,
+						HttpSession session) {
+		log.info(">>>> Get : Board Detail View Page");
+		
+		// 해당 bno의 조회수 +1 증가
+		bService.increaseViewCnt(bno, session);
+		
+		// DB에서 해당 bno 정보를 get해서 View단으로 전송
+		model.addAttribute("one", bService.view(bno));
+		
 		return "board/view";
 	}
 

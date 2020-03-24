@@ -19,4 +19,10 @@ public interface BoardDAO {
 
 	public BoardDTO view(int bno);
 
+
+	public void increaseViewCnt(@Param("bno") int bno);
+
+
+	
+
 }

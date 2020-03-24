@@ -379,7 +379,7 @@
 							<tr>
 								<td >${list.bno}</td>
 								<td class="body_txtleft">
-									<a href="${path}/board/view?bno=${list.bno}"> ${list.title}</a>
+									<a href="${path}/board/view/${list.bno}"> ${list.title}</a>
 									<c:if test="${today == regdate}">
 										<span class="new_color twincle_eff">NEW</span>
 									</c:if>
