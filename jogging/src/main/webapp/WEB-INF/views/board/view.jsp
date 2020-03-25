@@ -194,6 +194,7 @@
 		width: 90%;
 		height: 90px;
 		border: 1px solid #9999;
+		outline-color: #555;
 	}
 	.reply_input_box{
 		display: flex;
@@ -315,35 +316,12 @@
 		
 		<div class="block_line"></div>
 
-
-		<div class="reply_box">
-			<div class="reply_new_user">
-				<span>REPLY WRITE</span>
-			</div>
-			<div class="reply_input_box">
-				 <textarea id="reply"></textarea>
-				 <div class="reply_button">
-				<a href="#"><div class="insert_btn black">등록</div></a>
-				</div>
-			</div>
-		</div>
-
-
-		<div class="reply_box">
-			<div class="reply_user">
-				<span>REPLY LIST</span>
-			</div>
-			<div class="reply_content">
-				<div class="reply_writer"><span>작성자</span><span>작성시간</span></div>
-				<div class="reply_txt"><span>내용</span></div>
-				<div class="reply_update">
-					<a href="#"><div class="reply_update_update">수정</div></a>
-					<a href="#"><div class="reply_update_delete">삭제</div></a>
-				</div>
-			</div>
-		</div>
+		<!-- 댓글 쓰기, 목록 -->
+		<div id="listReply"></div>
 		
+		<!--  -->
 		<div class="block_line"></div>
+		
 		
 		
 		
@@ -351,16 +329,32 @@
 	</div>
 </body>
 <script type="text/javascript">
-$(function(){
-
-	//삭제 버튼 클릭시 모달창 Open
-	$('#btn_view_delete').click(function(){
-		$('.modal_msg_wrap').css('display', 'flex');
+	// 문서가 완료되면 시작
+	$(function(){
+		
+		// 댓글 목록 호출(실행)
+		listReply();
+		
+		//삭제 버튼 클릭시 모달창 Open
+		$('#btn_view_delete').click(function(){
+			$('.modal_msg_wrap').css('display', 'flex');
+		});
+		// 삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
+		$('.modal_msg_yes').click(function(){
+			location.href='${path}/board/delete?bno=${one.bno}';
+		});
 	});
-	// 삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
-	$('.modal_msg_yes').click(function(){
-		location.href='${path}/board/delete?bno=${one.bno}';
-	});
-});
+	
+	// 댓글 목록 출력 함수
+	function listReply(){
+		$.ajax({
+			type: "get",
+			url: "${path}/reply/list?bno=${one.bno}",
+			success: function(result){
+				// result : responseText 응답텍스트(html)
+				$("#listReply").html(result);
+			}
+		});
+	}
 </script>
 </html>
