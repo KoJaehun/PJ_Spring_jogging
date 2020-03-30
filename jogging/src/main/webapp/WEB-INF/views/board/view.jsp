@@ -160,12 +160,19 @@
 		height: 150px;
 	}
 	.reply_user{
+		display: flex;
+		justify-content: space-between;
 		border: 1px solid #e1e1e1;
 		background-color: #9e9e9e4f;
 		color: #444444;
+		width: 996px;
 		height: 38px;
 		text-align: left;
 		line-height: 35px;
+		margin: 10px 2px;
+	}
+	.left_margin{
+		margin-left: 10px;
 	}
 	.reply_box span{
 		margin-left: 10px;
@@ -181,10 +188,18 @@
 		height: 50%;
 	}
 	.reply_content span{
-		border-bottom: 1px solid #AAAAAA;
+		/* border-bottom: 1px solid #AAAAAA; */
 	}
-
-
+	.err_msg{
+		visibility: hidden;
+		color: red;
+		font-weight: bold;
+		line-height: 3;
+	}
+	.reply_err_box{
+		display: flex;
+		justify-content: space-between;
+	}
 	.reply_button{
 		display: block;
 	}
@@ -192,12 +207,13 @@
 	#reply{
 		margin: 5px;
 		width: 90%;
-		height: 90px;
+		height: 50px;
 		border: 1px solid #9999;
 		outline-color: #555;
 	}
 	.reply_input_box{
-		display: flex;
+		/* display: flex; */
+		display: block;
 		justify-content: space-between;
 		padding: 5px;
 	}
@@ -243,18 +259,51 @@
 		text-align: center;
 		border: 1px solid #E8E8E8;
 		line-height: 28px;
+		cursor: pointer;
 	}
 	.reply_update{
 		display: flex;
-		justify-content: flex-end;
-		margin-right: 10px;
+		margin-top: 30px;
 	}
-	.reply_update_update{
-		margin-right: 5px;
+	.reply_update_box{
+		background-color: black;
+		color: white;
+		border: 1px solid black;
+		cursor: pointer;
+		margin-top: 10px;
+		margin-left: 10px;
 	}
-	.reply_update_delete{
-		margin-right: 5px;
+	.reply_update_box1{
+		background-color: black;
+		color: white;
+		border: 1px solid black;
+		cursor: pointer;
+		margin-top: 10px;
+		margin-left: 10px;
 	}
+	
+	
+	#login_txt{
+		font-weight: bold;
+		color: red;
+		line-height: 6;
+	}
+	.flex_box{
+		display: flex;
+	}
+	.update_reply_check{
+		
+		display: block;
+		color: white;
+		background-color: black;
+		border : 1px solid black;
+		
+	}
+	.update_btn{
+		cursor: pointer;
+	}
+	
+	
 </style>
 </head>
 
@@ -268,10 +317,10 @@
 
 		<div class="board_title">
 			<div class="board_title_content">
-				<div class="title_bold title_left">${one.title}</div>
+				<div class="title_bold title_left">${one.bno} ${one.type} ${one.title}</div>
 					<div class="title_right side_box">							
 						<span><i class="far fa-eye"></i> ${one.viewcnt} </span>
-						<span><i class="far fa-comment"></i> ${one.replycnt} </span>
+						<span><i class="far fa-comment"></i> <span id="view_replycnt"> ${one.replycnt} </span></span>
 						<span><i style="color: red" class="fas fa-heart"></i> ${one.goodcnt} </span>							
 					</div>					
 			</div>
@@ -293,9 +342,9 @@
 			<div class="board_content_review">
 				<div class="board_content_content">
 					<div class="board_writer_content">${one.content}</div>
-					
+					<a href="#" class="good_box"><i style="color: red" class="fas fa-heart"></i></a>
 				</div>
-				<a href="#" class="good_box"><i style="color: red" class="fas fa-heart"></i></a>
+				
 			</div>
 		</div>
 		
@@ -331,6 +380,9 @@
 <script type="text/javascript">
 	// 문서가 완료되면 시작
 	$(function(){
+		setInterval(refreshReply(), 3000);
+		
+		
 		
 		// 댓글 목록 호출(실행)
 		listReply();
@@ -343,6 +395,64 @@
 		$('.modal_msg_yes').click(function(){
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
+		
+		// 1. 댓글 등록버튼 클릭시 
+		$(document).on('click', '#reply_btn', function(){
+			/* $('.err_msg').css('visibility', 'visible'); */
+			
+			// 2. reply_txt
+			var reply_txt = $('#reply').val();
+			
+			/* 알럿으로 값을 잘 받는지 체크 */
+			/* alert(reply_txt); */
+			
+			/* 정상적인값이 들어오는지 유효성체크*/
+			if(reply_txt == '' || reply_txt.length == 0){
+				$('#reply').focus();
+				$('.err_msg').css('visibility', 'visible');
+				return false;
+			}
+			
+			$('.reply_bno').val('${one.bno}');
+			$('.reply_type').val('${one.type}');
+			$('.reply_writer').val('${name}');
+			
+			$.ajax({
+				url: '${path}/reply/insert',
+				type: 'POST',
+				async: false,
+				
+			
+				data: $('.frm_reply').serialize(),
+				
+				
+				success: function() {
+					listReply();
+					
+				}
+				
+			});
+		});
+		
+		// 댓글 삭제
+		
+		$(document).on('click', '.reply_update_box', function(){
+			var rno = $(this).attr('data_num');	
+		 	var bno = '${one.bno}';		 	
+			
+			$.ajax({
+				type: "POST",
+				url: '${path}/reply/delete',
+				data: {'rno' : rno, 'bno':bno},
+				success: function() {
+					listReply();
+				},
+				error: function(){
+					alert('고재훈 ㄱㅅ');
+				}
+			});
+		});
+		
 	});
 	
 	// 댓글 목록 출력 함수
@@ -353,8 +463,15 @@
 			success: function(result){
 				// result : responseText 응답텍스트(html)
 				$("#listReply").html(result);
+				$('#view_replycnt').text($('.replyListCnt').val());
 			}
 		});
 	}
+	
+	function refreshReply() {
+		
+		listReply();
+	}
+	
 </script>
 </html>

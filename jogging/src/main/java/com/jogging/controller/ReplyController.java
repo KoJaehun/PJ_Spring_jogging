@@ -1,12 +1,12 @@
 package com.jogging.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jogging.domain.ReplyDTO;
 import com.jogging.service.reply.ReplyService;
@@ -22,7 +22,7 @@ public class ReplyController {
 	private ReplyService rService;
 	
 	@GetMapping("/list")
-	public String lsit(int bno, Model model) {
+	public String list(int bno, Model model) {
 		log.info(">>>> GET : Reply List Page");
 		
 		/* List<ReplyDTO> list = rService.list(bno);
@@ -35,4 +35,21 @@ public class ReplyController {
 		model.addAttribute("list", rService.list(bno));
 		return "/board/commentlist";
 	}
+	
+	/* 댓글 등록 */
+	@ResponseBody
+	@PostMapping("/insert")
+	public void insert(ReplyDTO rDto) {
+		log.info(">>>> POST : Reply Insert DB");
+		rService.replyInsert(rDto);
+	}
+	
+	@ResponseBody
+	@PostMapping("/delete")
+	public void delete(int rno, int bno) {
+		rService.replyDelete(rno,bno);
+		
+	}
+	
+	
 }

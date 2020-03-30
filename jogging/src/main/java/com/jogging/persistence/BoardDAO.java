@@ -24,5 +24,7 @@ public interface BoardDAO {
 	// 게시글 삭제
 	public void delBoard(int bno);
 	
+	// 댓글 수 + 1
+	public void replyCntPlus(@Param("bno") int bno);
 
 }

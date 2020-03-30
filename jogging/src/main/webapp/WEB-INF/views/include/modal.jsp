@@ -187,9 +187,9 @@
 				$('#modal_msg_main_txt').text(dropBoard_main_txt);				
 			} else {				
 				$('#modal_msg_main_txt').text(dropBoardNo_main_txt);
-				$('#modal_msg_yes').css('display', 'none');
-				$('#modal_msg_cancle').text('확 인');
-				
+				$('.modal_msg_yes').css('display', 'none');
+				$('.modal_msg_cancel').text('확 인');
+			  
 			}
 		}
 		

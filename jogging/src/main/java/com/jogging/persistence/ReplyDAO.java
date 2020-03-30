@@ -15,4 +15,20 @@ public interface ReplyDAO {
 	// list <- Mapper id값과 같아야 한다.
 	// 패키지의 경로랑 Mapper의 namespace와도 같아야한다.
 	public List<ReplyDTO> list(@Param("bno") int bno);
+	
+	
+	// 댓글 등록
+	public void replyInsert(ReplyDTO rDto);
+
+
+	public void replyCntPlus(int bno);
+
+
+	public void replyDelete(@Param("rno")int rno);
+
+
+	public void replyCntUpdate(@Param("bno")int bno, @Param("type")String type);
+	
+	
+	
 }
