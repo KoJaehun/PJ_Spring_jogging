@@ -206,7 +206,7 @@
 	
 	#reply{
 		margin: 5px;
-		width: 90%;
+		width: 99%;
 		height: 50px;
 		border: 1px solid #9999;
 		outline-color: #555;
@@ -297,10 +297,15 @@
 		color: white;
 		background-color: black;
 		border : 1px solid black;
+		cursor: pointer;
+		height: 91%;
+		line-height: 28px;
+		padding: 2px;
+		margin: 5px;
 		
 	}
 	.update_btn{
-		cursor: pointer;
+		
 	}
 	
 	
@@ -453,6 +458,9 @@
 			});
 		});
 		
+		
+		
+		
 	});
 	
 	// 댓글 목록 출력 함수
@@ -472,6 +480,9 @@
 		
 		listReply();
 	}
+	
+	
+	
 	
 </script>
 </html>

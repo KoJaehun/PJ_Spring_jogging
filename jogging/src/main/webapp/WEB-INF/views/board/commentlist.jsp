@@ -41,7 +41,7 @@
 									<div id="reply_btn" class="aaaa"><button class="insert_btn black" type="button">등록</button></div>
 									<div class="err_msg">댓글을 입력하세요</div>
 									</div>
-									<div>
+									<div class="update_btn">
 									<button class="update_reply_check" type="button"><i class="fas fa-wrench"></i>새로운 댓글을 확인하기</button>
 									</div>
 								</div>

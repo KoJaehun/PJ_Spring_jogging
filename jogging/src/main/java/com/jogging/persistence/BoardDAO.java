@@ -27,4 +27,7 @@ public interface BoardDAO {
 	// 댓글 수 + 1
 	public void replyCntPlus(@Param("bno") int bno);
 
+	// 글쓰기
+	
+	public void insert();
 }

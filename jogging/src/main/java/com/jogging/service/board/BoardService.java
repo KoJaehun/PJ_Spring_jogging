@@ -23,5 +23,8 @@ public interface BoardService {
 	// 게시글 삭제
 	public void delBoard(int bno);
 	
+	// 글쓰기
+	
+	public void insert();
 		
 }

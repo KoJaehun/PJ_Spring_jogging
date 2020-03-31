@@ -100,5 +100,12 @@ public class BoardContrller {
 		
 		return "redirect:/board/list";
 	}
+	
+	@GetMapping("/insert")
+	public String insert() {
+		log.info(">>>> GET : Board Insert Write");
+		
+		return "board/insert";
+	}
 
 }

@@ -216,9 +216,12 @@
 		color: white;
 		padding: 10px;
 		background-color: black;
+		border: 1px solid black;
+		cursor: pointer;
 	}
 	.board_txt:hover{
 		background-color: red;
+		border: 1px solid red;
 		color: white;
 		
 	}
@@ -316,6 +319,18 @@
 	}
 	.cool_link:hover:after{
 		width: 100%;
+	}
+	
+	.err_msg_box{
+		display: flex;
+		justify-content: flex-end;
+		visibility: hidden;
+	}
+	.err_msg_txt{
+		font-size: 13px;
+		color: red;
+		font-weight: bold;
+		
 	}
 	
 </style>
@@ -441,10 +456,13 @@
 					
 					</ul>
 				</div>
-				<a class="txt_background" href="#"><div class="board_txt">글쓰기</div></a>
+				
+				<button id="write_btn" class="txt_background board_txt" type="button">글쓰기</button>
+				
 			</div>
 
 			<div class="block_line"></div>
+			<div class="err_msg_box"><span class="err_msg_txt">로그인이 필요한 서비스입니다.</span></div>
 	</div>
 	
 
@@ -467,7 +485,15 @@
 		} else if(sort_option == 'reply'){
 			$('#sort_reply').css('color', '#FFD700');
 		}
+		
+		
+		
+		
+		
+		
 	});
+	
+	
 
 </script>
 
