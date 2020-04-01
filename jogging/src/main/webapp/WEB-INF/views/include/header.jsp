@@ -757,6 +757,8 @@ div#content_layout{
 </body>
 
 <script type="text/javascript">
+
+var uri = '${uri}';
 	$(function(){
 		var message = '${message}';
 		if(message == 'nologin') {
@@ -814,7 +816,9 @@ div#content_layout{
 		$('.pw_eye').prev().attr('type', 'password');
 		$('.pw_eye').html('<i class="fas fa-eye-slash"></i>')
 				   .css('color', '#aaa');
-
+		
+		// uri의 값을 비워줌
+		uri = '';
 	});
 	
 	// LOGIN 버튼 클릭시 AJAX 동작
@@ -835,7 +839,16 @@ div#content_layout{
 						.text('로그인 중 문제가 발생했습니다. 아이디와 비밀번호를 확인해주세요');
 					} else if (data == 1) {
 						console.log('로그인 성공');
-						location.reload(); // 새로고침
+						
+						// 게시판 리스트에서 글쓰기 버튼클릭시 로그인 성공했을때
+						// var uri = '${uri}'; 하여 uri값을 받아 원래 목적지로 이동하게 해줌
+						
+						// 글쓰기 버튼을 다시 클릭안하고 write 페이지로 이동할 수 있게 해줌.
+						if(uri == '') {
+							location.reload(); // 새로고침	
+						} else {
+							location.href = uri;
+						}
 					} else if (data == 2) {
 						$('.err_content').css('display', 'block')
 						.text('이메일 인증 후 로그인 할 수 있습니다.');

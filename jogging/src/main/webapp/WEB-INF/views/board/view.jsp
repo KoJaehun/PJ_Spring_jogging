@@ -355,7 +355,7 @@
 		
 		<div class="content_nav">
 			<div class="left_button nav_flex">
-				<a href="${header.referer}"><div class="nav_btn grey">목록</div></a>
+				<a id="list_btn" href="${header.referer}"><div class="nav_btn grey" id="border_list">목록</div></a>
 				<a href="#"><div class="nav_btn white">답변</div></a>
 			</div>
 			
@@ -459,7 +459,22 @@
 		});
 		
 		
-		
+		// 목록 버튼클릭시 비정상적인 접근이면 리스트로 보냄
+		$(document).on('click', '#border_list', function(){
+			var referer = '${header.referer}';
+			console.log('이전 URL: ' + referer);
+			
+			var index = referer.indexOf('/board/list');
+			console.log('index: '+referer.indexOf('/board/list'))
+			
+			if(index == '-1') {
+				// 버튼에서는 href라는 속성을 태그에 줄수없음 
+				// location.href = '${path}/board/list';
+				
+				// a태그는 href속성을 줄 수 있다.
+				$('#list_btn').attr('href','${path}/board/list');
+			}
+		});
 		
 	});
 	

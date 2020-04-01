@@ -44,7 +44,7 @@
 		}
 		.wrap{
 			width: 768px;
-			margin: 0 auto;
+			margin: 100 auto;
 		}
 		
 

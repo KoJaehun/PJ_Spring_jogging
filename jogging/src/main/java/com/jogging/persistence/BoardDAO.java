@@ -29,5 +29,7 @@ public interface BoardDAO {
 
 	// 글쓰기
 	
-	public void insert();
+	
+
+	public void write(BoardDTO bDto);
 }

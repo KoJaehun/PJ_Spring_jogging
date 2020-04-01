@@ -487,9 +487,9 @@
 		}
 		
 		
-		
-		
-		
+		$(document).on('click', '#write_btn', function(){
+			location.href = '${path}/board/write';
+		});
 		
 	});
 	

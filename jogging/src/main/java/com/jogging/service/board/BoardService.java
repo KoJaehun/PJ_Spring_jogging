@@ -24,7 +24,7 @@ public interface BoardService {
 	public void delBoard(int bno);
 	
 	// 글쓰기
-	
-	public void insert();
+
+	public void write(BoardDTO bDto);
 		
 }

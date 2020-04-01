@@ -226,6 +226,7 @@
 					<div class="title_bold margin_left"> 제목 </div>
 					<div class="margin_left title_line">
 						<input class="title_input" placeholder="제목을 입력하세요" type="" name="title">
+						
 					</div>
 				</div>
 			</div>
@@ -262,6 +263,7 @@
 			
 			<div class="writer_btn">
 				<button class="cancle_btn" type="button">취소</button>
+				<span>제목을 입력해주세요</span>
 				<button class="agree_btn" type="button">등록</button>
 			</div>
 		</form:form>
@@ -272,6 +274,8 @@
 		
 	});
 	
+	
+	// 글쓰기에서 취소버튼 눌렀을때
 	$(document).on('click', '.cancle_btn', function(){
 		var referer = '${header.referer}';
 		console.log('이전 URL: ' + referer);
@@ -284,8 +288,24 @@
 		} else {
 			location.href = '${header.referer}';	
 		}
-		
 	});
+	
+	// 등록 버튼눌렀을때 (유효성체크)
+	$(document).on('click', '.agree_btn', function(){
+		
+		// 유효성체크(제목)
+		var title = $('.title_input').val();
+		
+		if(title == '' || title.length == 0) {
+			alert('제목을 입력하세요.');
+			return false;
+		} else {
+			// 올바른 title 값을 서버로 전송
+			oEditors.getById["board_content"].exec("UPDATE_CONTENTS_FIELD", []);
+			$('#frm_board').submit();
+		}
+	});
+	
 </script>
 
 <script type="text/javascript">
