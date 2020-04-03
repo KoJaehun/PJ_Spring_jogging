@@ -28,8 +28,8 @@ public interface BoardDAO {
 	public void replyCntPlus(@Param("bno") int bno);
 
 	// 글쓰기
-	
-	
-
 	public void write(BoardDTO bDto);
+	
+	// 글수정
+	public void update(BoardDTO bDto);
 }

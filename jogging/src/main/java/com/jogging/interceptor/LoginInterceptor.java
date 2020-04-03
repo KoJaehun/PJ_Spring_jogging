@@ -25,50 +25,62 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{@Override
 		HttpSession session = request.getSession();
 		
 		// 이전 페이지 URL을 GET
+		// 이동하기 전 있었던 Page URL
 		String referer = request.getHeader("referer");
-		log.info(">>>>> 이전 URL: " + referer);
+		log.info(">>>> referer : " + referer);
 		
-		// Login NO
-		if(session.getAttribute("userid") == null) {
-			log.info(">>>>> NOLOGIN:(");
+		// 이동하려고 했던 목적지 Page URL
+		String uri = request.getRequestURI();
+		String ctx = request.getContextPath();
+		String nextUrl = uri.substring(ctx.length());
+		String prevUrl = "";
+		String finalUrl = "http://localhost:8081/jogging/";
+		
+		// session [ ] 
+		// referer [ http://localhost:8081/metop/board/list ]
+		// uri [ /jogging/board/write ]
+		// ctx [ /jogging ]
+		// nextUrl = [ /board/write ]
+		// prevUrl = [ ]
+		// finalUrl = [ http://localhost:8081/jogging/ ]
+		
+		// 비정상적인 접근을 막는 기능!
+		if(referer == null) {
+			log.info("WARING >>> 비정상적인 접근 :( ");
 			
-			//
-			String uri = request.getRequestURI();
-			log.info(">>>>> 목적지: " + uri);
-			
-			if(referer == null) {
-				
-				// URL로 바로 접근한 경우(referer이 없는 경우) 인덱스로 이동
-				referer = "http://localhost:8081/jogging/";
-				// 외부에서 접속했을때 referer이 null이면 위 url 을 넣어줌 
+			// 세션을 받기도전에 비정상적인 접근이면 finalUrl로 보내버림.
+			response.sendRedirect(finalUrl);
+			return false;	
+		} else {
+			// referer에서 ?를 찾아 그 주소를 indexQuery에 담는다
+			// referer에 ?가 없다면 indexQuery 에 -1이 담긴다.
+			int indexQuery = referer.indexOf("?");
+			//  
+			if(indexQuery == -1) {
+				prevUrl = referer.substring(finalUrl.length()-1);
 			} else {
-				
-				// 내부에서 접속했을때 문제가 생겼을경우 인덱스를 서브스트링하여 목록url로 변경해줌
-				
-				// 게시글 등록, 수정(로그인이 필요한 View단)
-				int index = referer.lastIndexOf("/");
-				int len = referer.length();
-				log.info(">>>> 인덱스: " + index);
-				log.info(">>>> 길이: " + len);
-				String mapWord = referer.substring(index, len);
-				log.info("수정된 URL: " + mapWord);
-				log.info(">>>>> 이전 URL: " + referer);
+				prevUrl = referer.substring(finalUrl.length()-1, indexQuery);
+			}
+			log.info("PREV URL >>>> " + prevUrl );
+			log.info("NEXT URL >>>> " + nextUrl );
 			
-				if(mapWord.equals("/write")) {
-				response.sendRedirect(request.getContextPath() + "/board/list");
-				return false;
+			if(nextUrl.equals("/board/update") || nextUrl.equals("/board")) {
+				log.info("sadsasa: " + prevUrl.indexOf("board/view"));
+				if(prevUrl.indexOf("board/view") == -1) {
+					log.info("WARNING >>> 비정상적인 접근 :(");
+					response.sendRedirect(finalUrl);
+					return false;
 				}
 			}
-			
-			// String referer = request.getHeader("referer");
-			
-			
-			// URL만 신경, GET or POST 중요하지 않음.
-			// 회원수정페이지 : GET:/member/update
-			// 회원수정DB : POST:/member/update
-			
-			// request(GET, POST) > response(forward, sendRedirect)
-			
+		}
+		
+		// 정상적인 접근인 경우 실행!
+		if(session.getAttribute("userid") == null) {
+			if(prevUrl.equals(nextUrl)) {
+				log.info("WARNING >> prevUrl == nextUrl :/");
+				response.sendRedirect(finalUrl);
+				return false;
+			}
 			FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
 			fMap.put("message", "nologin");
 			fMap.put("uri", uri);
@@ -85,10 +97,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{@Override
 			log.info(">>>>> LOGIN:)");
 			return true; // 이동 O
 		}
-		
-		
+				
+			
 	}
-	
+		
+		
+		
+		
+		
 
 	// URL 후
 //	@Override

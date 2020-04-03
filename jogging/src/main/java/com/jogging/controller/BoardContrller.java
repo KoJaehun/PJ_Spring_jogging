@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jogging.domain.BoardDTO;
 import com.jogging.service.board.BoardService;
@@ -104,7 +105,7 @@ public class BoardContrller {
 	
 	@GetMapping("/write")
 	public String write() {
-		log.info(">>>> GET : Board Write Page");
+		log.info(">>>> GET : Board Write View Page");
 		
 		return "board/register";
 	}
@@ -115,6 +116,28 @@ public class BoardContrller {
 		log.info(bDto.toString());
 		bService.write(bDto);
 		return "redirect:/board/list";
+	}
+	
+	@GetMapping("/update")
+	public String updateBoard(int bno, Model model) {
+		log.info(">>>> GET : Board Update View Page");
+		log.info("bno: " + bno);
+		
+		// 수정을 원하는 게시글의 정보를(1줄) 원함
+		// 
+		// 화면단으로 보내기위해 모델을 사용, 
+		// 이전에 만들어놓은 상세게시글(view)를 수정화면으로 보냄  
+		model.addAttribute("one", bService.view(bno));
+		
+		return "/board/register";
+	}
+	
+	@PostMapping("/update")
+	public String updateBoard(BoardDTO bDto) {
+		log.info(">>>> POST : Board Update Action");
+		bService.update(bDto);
+		
+		return "redirect:/board/view/"+bDto.getBno();
 	}
 
 }

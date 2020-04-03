@@ -307,6 +307,9 @@
 	.update_btn{
 		
 	}
+	.update_time{
+		display: none;
+	}
 	
 	
 </style>
@@ -336,8 +339,12 @@
 				<div style="display: flex;">
 					<div class="title_right side_box">
 						<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>						
-						<span>${regdate}</span>
-					</div>				
+						<span>작성시간 ${regdate}</span>
+					</div>
+					<div class="title_right side_box update_time">
+						<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>						
+						<span>수정시간 ${regdate}</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -361,7 +368,7 @@
 			
 			<c:if test="${name == one.writer}">
 				<div class="right_button nav_flex">
-					<a href="#"><div class="nav_btn white" id="btn_view_update">수정</div></a>
+					<a href="${path}/board/update?bno=${one.bno}"><div class="nav_btn white" id="btn_view_update">수정</div></a>
 					<a href="#"><div class="nav_btn black" id="btn_view_delete">삭제</div></a>
 				</div>
 			</c:if>

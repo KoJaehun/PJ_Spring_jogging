@@ -225,7 +225,7 @@
 				<div class="board_title_content">
 					<div class="title_bold margin_left"> 제목 </div>
 					<div class="margin_left title_line">
-						<input class="title_input" placeholder="제목을 입력하세요" type="" name="title">
+						<input class="title_input" placeholder="제목을 입력하세요" type="" name="title" value="${one.title}">
 						
 					</div>
 				</div>
@@ -236,7 +236,7 @@
 					<div class="title_bold margin_left content_line">내용</div>
 					<div class="margin_left title_line">					
 						<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-						<textarea style="min-width: 900px;width:100%;height:100%;" id="board_content" name="content" class="txt_content margin_left" placeholder="내용을 입력하세요"></textarea>
+						<textarea style="min-width: 900px;width:100%;height:100%;" id="board_content" name="content" class="txt_content margin_left" placeholder="내용을 입력하세요">${one.content}</textarea>
 					
 					</div>						
 					
@@ -263,7 +263,6 @@
 			
 			<div class="writer_btn">
 				<button class="cancle_btn" type="button">취소</button>
-				<span>제목을 입력해주세요</span>
 				<button class="agree_btn" type="button">등록</button>
 			</div>
 		</form:form>
@@ -272,6 +271,19 @@
 <script type="text/javascript">
 	$(function(){
 		
+		
+		// register ==> 게시글 등록과 게시글 수정
+		// ${one}에 값이 있으면 수정페이지 로딩!
+		if('${one}' != '') {
+			// 수정페이지로 디자인 변경
+			
+			// SelectBox 값으로 Selected
+			$('.select_box').val('${one.type}').attr('selected', 'selected');
+			$('.board_main').text('글 수정하기');
+			$('.agree_btn').text('수정').css('background-color', 'red');
+			$('.agree_btn').css('border', '1px solid red');
+			$('.agree_btn').css('color', 'white');
+		}
 	});
 	
 	
