@@ -308,7 +308,7 @@
 		
 	}
 	.update_time{
-		display: none;
+		
 	}
 	
 	
@@ -338,13 +338,16 @@
 				<div class="title_bold title_left">${one.writer}</div>
 				<div style="display: flex;">
 					<div class="title_right side_box">
-						<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>						
+						<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>						
 						<span>작성시간 ${regdate}</span>
 					</div>
+					
+					<c:if test="${one.regdate != one.updatedate}">
 					<div class="title_right side_box update_time">
-						<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>						
-						<span>수정시간 ${regdate}</span>
+						<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedate"/>						
+						<span>수정시간 ${updatedate}</span>
 					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
