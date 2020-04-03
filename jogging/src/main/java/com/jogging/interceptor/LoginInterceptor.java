@@ -66,10 +66,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{@Override
 			
 			if(nextUrl.equals("/board/update") || nextUrl.equals("/board")) {
 				log.info("sadsasa: " + prevUrl.indexOf("board/view"));
-				if(prevUrl.indexOf("board/view") == -1) {
+				if(request.getParameter("title") == null) {
+					if(prevUrl.indexOf("board/view") == -1) {
 					log.info("WARNING >>> 비정상적인 접근 :(");
 					response.sendRedirect(finalUrl);
 					return false;
+					}
 				}
 			}
 		}
