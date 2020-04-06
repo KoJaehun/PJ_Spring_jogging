@@ -1,0 +1,164 @@
+
+
+
+
+
+-- 상품 테이블
+DROP TABLE tbl_pdt
+CREATE TABLE tbl_pdt(
+    pno NUMBER PRIMARY KEY,
+    pname VARCHAR2(500) NOT NULL,
+    price NUMBER DEFAULT 0,
+    type VARCHAR2(500),
+    cnt NUMBER DEFAULT 0,
+    regdate DATE DEFAULT SYSDATE
+);
+
+DROP SEQUENCE seq_pdt;
+CREATE SEQUENCE seq_pdt
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+-----------------------------------------------------------------
+
+
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+    id VARCHAR2(100) PRIMARY KEY,
+    pw VARCHAR2(200) NOT NULL,
+    name VARCHAR2(100) NOT NULL,
+    phone VARCHAR2(50) NOT NULL,
+    email VARCHAR2(100) NOT NULL,
+    postcode VARCHAR2(30) NOT NULL,
+    addr1 VARCHAR2(300) NOT NULL,
+    addr2 VARCHAR2(300) NOT NULL,
+    useon VARCHAR2(20) NOT NULL,
+    primaryon VARCHAR2(20) NOT NULL,
+    locon VARCHAR2(20) DEFAULT 'false',
+    eventon VARCHAR2(20) DEFAULT 'false',
+    useyn VARCHAR2(200) DEFAULT 'n',
+    regdate DATE DEFAULT SYSDATE
+);
+
+INSERT INTO tbl_member(id, pw, name, phone, email, postcode, addr1, addr2, useon, primaryon)
+VALUES('admin', '1234', '관리자', '01012345678', 'admin@gmail.com', '12345', '광주광역시', '광산구', 'true', 'true');
+INSERT INTO tbl_member(id, pw, name, phone, email, postcode, addr1, addr2, useon, primaryon)
+VALUES('arari', '1234', '조아라', '01011112222', 'arari@gmail.com', '12345', '광주광역시', '광산구', 'true', 'true');
+
+COMMIT;
+
+SELECT * FROM tbl_member;
+
+
+--------------------------------게시판 -----------------------------
+DROP SEQUENCE seq_board;
+CREATE SEQUENCE seq_board
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+
+DROP TABLE tbl_board CASCADE CONSTRAINTS;
+CREATE TABLE tbl_board(
+    bno number(10, 0),
+    type CHAR(4) NOT NULL,
+    title VARCHAR2(200) NOT NULL,
+    view_content VARCHAR2(4000) NOT NULL,
+    search_content VARCHAR2(4000) NOT NULL,
+    writer VARCHAR2(50) NOT NULL,
+    viewcnt NUMBER DEFAULT 0,
+    replycnt NUMBER DEFAULT 0,
+    goodcnt NUMBER DEFAULT 0,
+    regdate DATE DEFAULT SYSDATE,
+    updatedate DATE DEFAULT SYSDATE,
+    show CHAR(1) DEFAULT 'y',
+    ref NUMBER NOT NULL,
+    re_step NUMBER NOT NULL,
+    re_level NUMBER NOT NULL
+);
+
+-- 게시판 테이블 PK Key 추가
+ALTER TABLE tbl_board ADD CONSTRAINT pk_board
+PRIMARY KEY(bno);
+
+-- 게시글 총 15건 추가! ref=1, re_step=1 , re_level=0, type=free
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목1', '테스트내용1', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목2', '테스트내용2', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목3', '테스트내용3', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목4', '테스트내용4', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목5', '테스트내용5', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목6', '테스트내용6', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목7', '테스트내용7', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목8', '테스트내용8', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목9', '테스트내용9', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목10', '테스트내용10', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목11', '테스트내용11', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목12', '테스트내용12', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목13', '테스트내용13', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목14', '테스트내용14', '백진주', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트제목15', '테스트내용15', '백진주', 1, 1, 0);
+
+
+SELECT * FROM tbl_board;
+
+commit;
+
+
+-------------------------
+-- 댓글 테이블 생성
+
+DROP SEQUENCE seq_reply;
+CREATE SEQUENCE seq_reply
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+    
+DROP TABLE tbl_reply;
+CREATE TABLE tbl_reply(
+    rno NUMBER,
+    type CHAR(4) NOT NULL,
+    content VARCHAR2(2000) NOT NULL,
+    writer VARCHAR2(100) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    bno NUMBER NOT NULL
+);
+-- tbl_reply 에 PK 제약조건 추가
+ALTER TABLE tbl_reply
+ADD CONSTRAINT pk_reply_rno
+PRIMARY KEY(rno);
+
+-- 댓글 FK 게시글과 참조, 게시글 삭제시 참조하고 있는 댓글 연쇄 삭제를 위한 cascade 설정
+ALTER TABLE tbl_reply
+ADD CONSTRAINT fk_reply_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
+
+-- 상위 게시글 3건에다가 2건 ~3건 댓글
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '어디로 가야하오', '리신', 22);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '아디오스', '백진주', 22);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '반지사고파', '조운이', 22);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '공부좀해', '이승주', 22);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '히히', '백진주', 42);
+
+SELECT * FROM tbl_reply;
+
+COMMIT;
