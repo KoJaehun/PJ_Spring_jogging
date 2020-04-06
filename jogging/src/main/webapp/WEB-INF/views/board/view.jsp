@@ -356,7 +356,7 @@
 		<div class="board_content">
 			<div class="board_content_review">
 				<div class="board_content_content">
-					<div class="board_writer_content">${one.content}</div>
+					<div class="board_writer_content">${one.view_content}</div>
 					<a href="#" class="good_box"><i style="color: red" class="fas fa-heart"></i></a>
 				</div>
 				

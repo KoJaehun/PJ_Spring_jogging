@@ -236,8 +236,8 @@
 					<div class="title_bold margin_left content_line">내용</div>
 					<div class="margin_left title_line">					
 						<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-						<textarea style="min-width: 900px;width:100%;height:100%;" id="board_content" name="content" class="txt_content margin_left" placeholder="내용을 입력하세요">${one.content}</textarea>
-					
+						<textarea style="min-width: 900px;width:100%;height:100%;" id="board_content" name="view_content" class="txt_content margin_left" placeholder="내용을 입력하세요">${one.view_content}</textarea>
+						
 					</div>						
 					
 				</div>
@@ -311,10 +311,14 @@
 		if(title == '' || title.length == 0) {
 			alert('제목을 입력하세요.');
 			return false;
-		} else {
-			// 올바른 title 값을 서버로 전송
-			oEditors.getById["board_content"].exec("UPDATE_CONTENTS_FIELD", []);
+		} else {			
+			oEditors.getById["board_content"].exec("UPDATE_CONTENTS_FIELD", []);			
+			var view_content = $('#board_content').val();			
+			var search_content = view_content.replace(/(<([^>]+)>)/ig,"").replace("&nbsp;", "");	
+			$('#frm_board').append('<textarea id="search_content" name="search_content"></textarea>');
+			$('#search_content').val(search_content);
 			$('#frm_board').submit();
+			
 		}
 	});
 	
