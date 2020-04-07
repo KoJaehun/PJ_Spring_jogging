@@ -225,7 +225,7 @@
 				<div class="board_title_content">
 					<div class="title_bold margin_left"> 제목 </div>
 					<div class="margin_left title_line">
-						<input class="title_input" placeholder="제목을 입력하세요" type="" name="title" value="${one.title}">
+						<input id="board_title" class="title_input" placeholder="제목을 입력하세요" type="" name="title" value="${one.title}">
 						
 					</div>
 				</div>
@@ -269,20 +269,43 @@
 		</div>
 	</div>
 <script type="text/javascript">
+	
+	
+	var flag = '${flag}';
+	console.log('flag:' + flag);
+	
+	
 	$(function(){
 		
 		
 		// register ==> 게시글 등록과 게시글 수정
 		// ${one}에 값이 있으면 수정페이지 로딩!
-		if('${one}' != '') {
+		if(flag == 'update') {
 			// 수정페이지로 디자인 변경
 			
 			// SelectBox 값으로 Selected
 			$('.select_box').val('${one.type}').attr('selected', 'selected');
 			$('.board_main').text('글 수정하기');
-			$('.agree_btn').text('수정').css('background-color', 'red');
-			$('.agree_btn').css('border', '1px solid red');
-			$('.agree_btn').css('color', 'white');
+			$('.agree_btn').text('수정').css('background-color', '#FFFFFF');
+			$('.agree_btn').css('border', '1px solid #e8e8e8');
+			$('.agree_btn').css('color', '#333');
+		} else if (flag == 'answer') {
+			// 답글 체크박스 죽이기
+			$('.select_box').val('${one.type}')
+							.attr('selected', 'selected')
+							.attr('onFocus', 'this.initialSelect = this.selectedIndex')
+							.attr('onChange', 'this.selectedIndex = this.initialSelect');
+							
+			$('.board_main').text('게시글 답글');
+			$('.agree_btn').text('등록').css('background-color', '#FFFFFF');
+			$('.agree_btn').css('border', '1px solid #e8e8e8');
+			$('.agree_btn').css('color', '#333');
+			
+			// 답글 제목 죽이기
+			$('#board_title').val('${one.title}')
+							 .attr('readonly', 'readonly')
+							 .css('border', '1px solid #FFFFFF')
+							 .css('outline', 'none');
 		}
 	});
 	

@@ -31,6 +31,6 @@ public class BoardDTO {
 	private String[] files;			// 첨부파일 이름 배열
 	private int ref;				// 답변 그룹 번호
 	private int re_step;			// 답변 출력 순번
-	private int re_level;		// 답변 단계(계층형)
+	private int re_level;			// 답변 단계(계층형)
 	
 }

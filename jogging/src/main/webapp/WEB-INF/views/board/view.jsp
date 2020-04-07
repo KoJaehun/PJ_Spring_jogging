@@ -82,7 +82,7 @@
 		display: block;
 		/* border-top: 1px solid #e8e8e8; */
 		border-bottom: 1px solid #e8e8e8;
-		height: 200px;
+		
 		margin-top: 10px;
 	}
 	.side_box{
@@ -94,13 +94,13 @@
 
 	.board_content_review{
 		margin: 0 auto;
-		height: 95%;
+		
 	}
 
 	.board_content_content{
 		display: block;
 		border: 1px solid #FFFFFF;
-		height: 90%;
+		
 		margin-top: 10px;
 	}
 	.board_writer_content{
@@ -366,7 +366,7 @@
 		<div class="content_nav">
 			<div class="left_button nav_flex">
 				<a id="list_btn" href="${header.referer}"><div class="nav_btn grey" id="border_list">목록</div></a>
-				<a href="#"><div class="nav_btn white">답변</div></a>
+				<a href="${path}/board/answer?bno=${one.bno}"><div class="nav_btn white">답글</div></a>
 			</div>
 			
 			<c:if test="${name == one.writer}">

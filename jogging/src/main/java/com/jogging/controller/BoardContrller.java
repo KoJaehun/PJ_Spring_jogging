@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jogging.domain.BoardDTO;
 import com.jogging.service.board.BoardService;
@@ -128,6 +127,7 @@ public class BoardContrller {
 		// 화면단으로 보내기위해 모델을 사용, 
 		// 이전에 만들어놓은 상세게시글(view)를 수정화면으로 보냄  
 		model.addAttribute("one", bService.view(bno));
+		model.addAttribute("flag", "update");
 		
 		return "/board/register";
 	}
@@ -139,5 +139,49 @@ public class BoardContrller {
 		
 		return "redirect:/board/view/"+bDto.getBno();
 	}
+	
+	@GetMapping("/answer")
+	public String answerBoard(BoardDTO bDto, Model model) { // @Controller 붙은 클래스는 매개변수를 자동으로 객체생성해준다
+		log.info(">>>> GET : Board Answer View Page");
+		bDto = bService.view(bDto.getBno());
+		
+		String newContent = "<p style='font-size:14px; font-weight:bold;'>이전게시글 내용</p>" +
+							bDto.getView_content() +
+							"<br> ==================================================================================";
+		bDto.setView_content(newContent);
+		
+		model.addAttribute("one", bDto);
+		model.addAttribute("flag", "answer");
+		
+		return "board/register";
+	}
+	
+	@PostMapping("/answer")
+	public String answerBoard(BoardDTO bDto) {
+		log.info(">>>> POST : Board Answer Action");
+		
+		// 현재상태 : 답글(bno(메인게시글), 타입, 제목, 내용, 작성자)
+		log.info("답글DTO: " + bDto.toString());
+		
+		// 현재상태 : 메인(ALL, ref, re_level, re_step)
+		BoardDTO prevDto = bService.view(bDto.getBno());
+		log.info("메인DTO: " + prevDto.toString());
+		
+		// 현재상태 : 답글(bno(메인게시글), 타입, 제목, 내용, 작성자
+		//				   ref(메인), re_level(메인), re_step(메인)
+		bDto.setRef(prevDto.getRef());
+		bDto.setRe_step(prevDto.getRe_step());;
+		bDto.setRe_level(prevDto.getRe_level());
+		
+		bService.answer(bDto);
+		
+		// ref, re_step, re_level
+		// ref = 그래도 메인게시글 ref copy
+		// re_level = 메인게시글 re_level + 1
+		// re_step = 메인게시글 re_step + 1
+		
+		return "redirect:/board/view/"+bDto.getBno();
+	}
+	
 
 }

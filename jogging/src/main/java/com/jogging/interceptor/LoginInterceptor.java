@@ -29,6 +29,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{@Override
 		String referer = request.getHeader("referer");
 		log.info(">>>> referer : " + referer);
 		
+		String qString = request.getQueryString();
+		log.info(">>>> queryString: " + qString);
+		
 		// 이동하려고 했던 목적지 Page URL
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
@@ -85,12 +88,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{@Override
 			}
 			FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
 			fMap.put("message", "nologin");
+			if(qString != null) {
+				uri = uri + "?" + qString;
+			}
 			fMap.put("uri", uri);
-			
-			
 			// URL로 바로 접근한 경우(referer이 없는 경우) 인덱스로 이동
-			
-			
 			RequestContextUtils.saveOutputFlashMap(referer, request, response);
 			response.sendRedirect(referer);
 			

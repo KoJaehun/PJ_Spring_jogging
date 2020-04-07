@@ -28,4 +28,6 @@ public interface BoardService {
 
 	// 글수정
 	public void update(BoardDTO bDto);
+	
+	public void answer(BoardDTO bDto);
 }
