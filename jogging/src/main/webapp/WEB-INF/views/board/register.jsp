@@ -112,10 +112,10 @@
 		line-height: 98px;
 
 	}
-	.upload_content{
+	.board_div{
 		display: block;
 		width: 100%;
-		outline-style: dotted;
+		border: 2px dashed #333;
 		
 
 	}
@@ -168,7 +168,7 @@
 	.content_line{
 		line-height: 180px;
 	}
-	.outline_box{
+	.uproad_txt{
 		margin-top: 41px;
 	}
 	.txt_content{
@@ -187,6 +187,14 @@
 	.select_box{
 		margin: 12px 0;
 		padding: 5px;
+	}
+	.input_wrap{
+		width: 95%;
+		border: 1px solid #FFFFFF;
+	}
+	.board_div{
+		height: 100%;
+	
 	}
 
 </style>
@@ -250,9 +258,10 @@
 					<div>
 						<div class="upload_title title_bold margin_left">첨부파일</div>
 					</div>
-					<div class="upload_content margin_left">
-						<div class="outline_box">
-							<span>첨부파일을 드래그 해주세요.</span>
+					
+					<div class="input_wrap form-group margin_left">
+						<div class="board_div fileDrop">
+						<p><i class="fas fa-paperclip uproad_txt"></i> 첨부파일을 드래그 해주세요.</p>
 						</div>
 					</div>
 					
@@ -307,6 +316,45 @@
 							 .css('border', '1px solid #FFFFFF')
 							 .css('outline', 'none');
 		}
+		
+		// 1. 웹브라우저에 drag&drop시 파일이 열리는 문제 ( 기본효과 ) 
+		$('.fileDrop').on('dragenter dragover', function(e){
+			e.preventDefault();
+		});
+		
+		// 2. 사용자가 파일을 drop 했을 때
+		$('.fileDrop').on('drop', function(e){
+			e.preventDefault();
+			
+			// 드래그에 전달된 첨부파일
+			var files = e.originalEvent.dataTransfer.files;
+			
+			// 그중 하나만 꺼내옴
+			var file = files[0];
+			
+			// 폼 객체 생성
+			var formData = new FormData();
+			
+			// 폼에 파일 1개 추가!
+			formData.append('file', file);
+			
+			// 서버에 파일 업로드
+			$.ajax({
+				url: '${path}/upload/uploadAjax',
+				data: formData,
+				datatype: "text",
+				processData: false, // 쿼리스트링 방식 생성X
+				contentType: false, // 서버단으로 전송하는 데이터 타입(multipart)
+				type: 'POST',
+				success: function(data) {
+					console.log(data);
+					// data : 업로드한 파일 정보와 http 상태 코드
+					// 첨부파일 출력 메서드 호출
+					printFiles(data); 
+				}
+			});
+		});
+		
 	});
 	
 	
