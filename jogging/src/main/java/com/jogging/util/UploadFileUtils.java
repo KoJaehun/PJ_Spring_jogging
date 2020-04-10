@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UploadFileUtils {
 	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
-	
+		// uploadPath = 저장할 디렉토리경로, originalName = 파일이름, fileData = 배열 , throws Exception 예외처리
 		// uuid 발급
 		UUID uid = UUID.randomUUID(); // 중복된 이름을 방지하기 위해서
 		String savedName = uid.toString() + "_" + originalName; 
@@ -27,10 +27,14 @@ public class UploadFileUtils {
 		
 		// 임시 디렉토리에 업로드된 파일을 지정된 디렉토리로 복사
 		FileCopyUtils.copy(fileData, target);	// 올려야할 첨부파일, '어디에 어떤식으로' 세팅값
+												// 지정해둔 경로에 파일을 넣어줌(저장)
+		
+		// 썸네일 파일을 만들기위해
 		// 파일의 확장자 검사
 		// a.jpg / aaa.bbb.ccc.jpg
 		String formatName = originalName.substring( // 끝에서부터 .을 찾음, formatname에는 확장자가 들어옴
 				originalName.lastIndexOf(".") + 1);
+										// "." 을 찾고 +1(바로 다음값) = jpg , img, gif
 		String uploadedFileName = null;
 		// 이미지 파일은 썸네일 사용
 		if (MediaUtils.getMediaType(formatName) != null) { // 확장자 판단// null 이 아니면 이미지,
@@ -45,16 +49,17 @@ public class UploadFileUtils {
 	
 	private static String calcPath(String uploadPath) {
 		Calendar cal = Calendar.getInstance();
-		// 2020
+		// \2020
 		String yearPath = File.separator + cal.get(Calendar.YEAR);
-		// /2020/04
+		// \2020\04
 		String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-		// /2020/04/08
+		// \2020\04\08
 		String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
 		
-		makeDir(uploadPath, yearPath, monthPath, datePath);
+		makeDir(uploadPath, yearPath, monthPath, datePath); // 같은 클래스내에 있으니까 객체생성 할 필요가 없음.
+															// 객체생성은 다른클래스에 있을때 쓰기위해서 만듬.
 		log.info(datePath);
-		return datePath;
+		return datePath; // 2020/04/08
 	}
 	
 	
@@ -67,7 +72,7 @@ public class UploadFileUtils {
 		// 디렉토리가 존재하면 skip
 		if(new File(paths[paths.length - 1]).exists()) {
 					// [] 인덱스 설정. 0,1,2 마지막값을 꺼내온다
-					// exists 존재여부확인 
+					// exists 존재여부확인 = 존재하면 true, 없으면 false
 			return;
 		}
 		for(String path : paths) {
@@ -99,10 +104,12 @@ public class UploadFileUtils {
 	private static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception {
 		// 이미지를 읽기 위한 버퍼
 		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
+							//	= ImageIO클래스에서 읽기 (저장했던 경로) = c:/developer/upload/2020/04/08/1klj12312_abc.txt
 		// 100픽셀 단위의 썸네일 생성
 		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
 		// sourceImg = 원본이미지
 		// Scalr = 화소수를 줄여서 만들어줌, FIT_TO_HEIGHT 세로 100 에 맞춰서 자동으로 가로길이를맞춰준다.
+		// 결과를 destImg 담음
 		
 		// 썸네일의 이름
 		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
@@ -110,6 +117,7 @@ public class UploadFileUtils {
 		// c:/developer/upload/2020/04/08/s_1klj12312_abc.txt
 		File newFile = new File(thumbnailName);
 		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+		// formatName = 확장자를 자름 substring 마지막 "." 에서 + 1~ = jpg, png, gif
 		// 썸네일 생성
 		ImageIO.write(destImg, formatName.toUpperCase(), newFile);
 		// 썸네일의 이름을 리턴함
