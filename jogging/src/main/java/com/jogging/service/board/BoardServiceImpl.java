@@ -133,6 +133,12 @@ public class BoardServiceImpl implements BoardService{
 		bDto.setRe_step(bDto.getRe_step()+1);
 		bDao.answer(bDto);
 	}
+
+	@Override
+	public List<String> getAttach(int bno) {
+		
+		return bDao.getAttach(bno);
+	}
 	
 	
 	

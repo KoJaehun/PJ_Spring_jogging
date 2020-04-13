@@ -7,6 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>상세게시판</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 	<script src="https://kit.fontawesome.com/912e79718f.js" crossorigin="anonymous"></script>
 	<style type="text/css">
 	
@@ -310,6 +311,18 @@
 	.update_time{
 		
 	}
+	/* 첨부파일 리스트 */
+	.flex{
+		display: flex;
+		margin-top: 10px;
+	}
+	.flex li {
+		margin-left: 10px;
+	}
+	.uploadedList{
+		margin-left: 15px;
+		font-size: 14px;
+	}
 	
 	
 </style>
@@ -363,6 +376,10 @@
 			</div>
 		</div>
 		
+		
+		<ul class="mailbox-attachments flex clearfix uploadedList"></ul>
+		<div class="block_line"></div>
+		
 		<div class="content_nav">
 			<div class="left_button nav_flex">
 				<a id="list_btn" href="${header.referer}"><div class="nav_btn grey" id="border_list">목록</div></a>
@@ -376,7 +393,8 @@
 				</div>
 			</c:if>
 		</div>
-
+		
+		
 		
 		<div class="block_line"></div>
 
@@ -392,9 +410,38 @@
 		
 	</div>
 </body>
+<script id="fileTemplate" type="text/x-handlebars-template">
+	<li>
+		<div class="mailbox-attachment-icon has-img" style="width=805px;">
+			<img src="{{imgSrc}}" alt="Attachment" class="s_img">
+		</div>
+		<div class="mailbox-attachment-info">
+			<a href="{{originalFileUrl}}" class="mailbox-attachment-name">
+				<i class="fa fa-paperclip"></i> {{originalFileName}}
+			</a>
+		</div>
+	</li>
+</script>
+<script src="${path}/resources/js/fileAttach.js"></script>
 <script type="text/javascript">
+
+	//Handlebars 파일템플릿 컴파일
+	var fileTemplate = Handlebars.compile($("#fileTemplate").html());
+	
 	// 문서가 완료되면 시작
 	$(function(){
+		
+		// 첨부파일 목록 불러오기
+		var listCnt = listAttach('${path}', '${one.bno}');
+		
+		// 첨부파일 0건일때 '첨부파일 없음' 출력
+		console.log('FILE COUNT : ' + listCnt)
+		if(listCnt == 0) {
+			var text = '<i class="fa fa-paperclip"></i> <span class="no_attach"> 첨부파일이 없습니다. </span>';
+			$('.uploadedList').html(text);
+		}
+		
+		
 		setInterval(refreshReply(), 3000);
 		
 		

@@ -87,16 +87,16 @@
 	}
 	
 	// 첨부파일 리스트를 출력하는 함수
-	function listAttach(){
+	function listAttach(path, bno){
 	var listCnt = 0;
 	$.ajax({
-		type: "POST",
-		url: "${path}/board/getAttach/${one.bno}",
+		type: 'POST',
+		url: path+'/board/getAttach?bno='+bno,
 		async:false,
 		success:function(list){
 			listCnt = list.length;
 			$(list).each(function(i,e){
-				printFiles(e);
+				printFiles(e, path);
 			});
 		}
 	});

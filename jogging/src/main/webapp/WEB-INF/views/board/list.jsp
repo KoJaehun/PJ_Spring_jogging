@@ -425,7 +425,9 @@
 								</c:choose>
 								</td>
 								<td>${list.viewcnt}</td>
-								<td><i class="far fa-file"></i></td>
+								
+								<td class="file_box"><i class="far fa-file"></i></td>
+								
 							</tr>					
 						</tbody>
 					</c:forEach>
@@ -500,6 +502,8 @@
 		$(document).on('click', '#write_btn', function(){
 			location.href = '${path}/board/write';
 		});
+		
+		if()
 		
 	});
 	

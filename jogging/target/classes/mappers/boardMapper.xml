@@ -117,6 +117,12 @@ search_content = #{search_content},
 		VALUES(#{fullName}, seq_board.CURRVAL)
 	</insert>
 	
+	<!-- 첨부파일 목록 -->
+	<select id="getAttach" resultType="String">
+		SELECT fullName FROM tbl_attach
+		WHERE bno = #{bno}
+		ORDER BY regdate DESC
+	</select>
 	
 		
 </mapper>
