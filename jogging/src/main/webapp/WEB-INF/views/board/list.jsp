@@ -426,8 +426,12 @@
 								</td>
 								<td>${list.viewcnt}</td>
 								
+								<c:if test="${list.filecnt == 0}">
+								<td class="file_box"><i style="color:#e8e8e8" class="far fa-file"></i></td>
+								</c:if>
+								<c:if test="${list.filecnt != 0}">
 								<td class="file_box"><i class="far fa-file"></i></td>
-								
+								</c:if>
 							</tr>					
 						</tbody>
 					</c:forEach>
@@ -503,7 +507,7 @@
 			location.href = '${path}/board/write';
 		});
 		
-		if()
+	
 		
 	});
 	

@@ -114,6 +114,15 @@ public class BoardContrller {
 	public String write(BoardDTO bDto) {
 		log.info(">>>> POST: Board Wirte Action");
 		log.info(bDto.toString());
+		
+		
+		if(bDto.getFiles() == null) { // 첨부파일 NO
+			bDto.setFilecnt(0);
+		} else { // 첨부파일 YES
+			log.info("첨부파일 수:" +bDto.getFiles().length);
+			bDto.setFilecnt(bDto.getFiles().length);
+		}
+		
 		bService.write(bDto);
 		return "redirect:/board/view/"+bDto.getBno();
 	}
