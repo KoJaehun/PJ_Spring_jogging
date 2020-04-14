@@ -177,6 +177,15 @@ public class BoardContrller {
 		BoardDTO prevDto = bService.view(bDto.getBno());
 		log.info("메인DTO: " + prevDto.toString());
 		
+		if(bDto.getFiles() == null) { // 첨부파일 NO
+			bDto.setFilecnt(0);
+		} else { // 첨부파일 YES
+			log.info("첨부파일 수:" +bDto.getFiles().length);
+			bDto.setFilecnt(bDto.getFiles().length);
+		}
+		
+		
+		
 		// 현재상태 : 답글(bno(메인게시글), 타입, 제목, 내용, 작성자
 		//				   ref(메인), re_level(메인), re_step(메인)
 		bDto.setRef(prevDto.getRef());
