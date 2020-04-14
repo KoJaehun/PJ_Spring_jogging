@@ -31,7 +31,7 @@ public interface BoardDAO {
 	public void write(BoardDTO bDto);
 	
 	// 글수정
-	public void update(BoardDTO bDto);
+	public void updateBoard(BoardDTO bDto);
 	
 	// 게시글 답글 등록
 	public void answer(BoardDTO bDto);
@@ -47,4 +47,9 @@ public interface BoardDAO {
 	
 	// 첨부파일 삭제
 	public void deleteAttach(@Param("bno") int bno);
+	
+	// 첨부파일 수정(재등록)
+	public void updateAttach(@Param("fullName") String fullName, @Param("bno") int bno);
+
+	
 }

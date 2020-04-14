@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/board")
-public class BoardContrller {
+public class BoardController {
 	
 	@Autowired
 	BoardService bService;
@@ -144,8 +144,18 @@ public class BoardContrller {
 	
 	@PostMapping("/update")
 	public String updateBoard(BoardDTO bDto) {
+		
 		log.info(">>>> POST : Board Update Action");
-		bService.update(bDto);
+		
+		if(bDto.getFiles() == null) { // 첨부파일 NO
+			bDto.setFilecnt(0);
+		} else { // 첨부파일 YES
+			log.info("첨부파일 수:" +bDto.getFiles().length);
+			bDto.setFilecnt(bDto.getFiles().length);
+		}
+		
+		log.info(bDto.toString());
+		bService.updateBoard(bDto);
 		
 		return "redirect:/board/view/"+bDto.getBno();
 	}
