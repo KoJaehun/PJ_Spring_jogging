@@ -124,5 +124,12 @@ search_content = #{search_content},
 		ORDER BY regdate DESC
 	</select>
 	
+	<!-- 첨부파일 삭제 -->
+	<delete id="deleteAttach">
+		DELETE FROM tbl_attach
+		WHERE bno = #{bno}
+	</delete>
+	
+		
 		
 </mapper>

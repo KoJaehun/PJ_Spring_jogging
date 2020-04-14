@@ -342,7 +342,8 @@
 					<div class="title_right side_box">							
 						<span><i class="far fa-eye"></i> ${one.viewcnt} </span>
 						<span><i class="far fa-comment"></i> <span id="view_replycnt"> ${one.replycnt} </span></span>
-						<span><i style="color: red" class="fas fa-heart"></i> ${one.goodcnt} </span>							
+						<span><i style="color: red" class="fas fa-heart"></i> ${one.goodcnt} </span>
+						<span><i class="fa fa-paperclip"></i> ${one.filecnt} </span>							
 					</div>					
 			</div>
 		</div>
@@ -428,6 +429,9 @@
 	//Handlebars 파일템플릿 컴파일
 	var fileTemplate = Handlebars.compile($("#fileTemplate").html());
 	
+	// 삭제할 첨부파일 목록
+	var deleteFileList = new Array();
+	
 	// 문서가 완료되면 시작
 	$(function(){
 		
@@ -455,6 +459,24 @@
 		});
 		// 삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
 		$('.modal_msg_yes').click(function(){
+			// 1. Ajax로 해당 게시글의 첨부파일을 Local에서 삭제!
+			// uploadedList 내부의 .file 태그 각각 반복
+			$(".uploadedList .file").each(function(i){
+				// console.log(i + ", " + $(this).val());
+				deleteFileList[i] = $(this).val();
+			});
+			// console.log(deleteFileList);
+			if(deleteFileList.length > 0) { 
+				$.post('${path}/upload/deleteAllFile',
+						{files: deleteFileList},
+						function(){}
+				);
+			}
+			
+			// 2. 서버단으로 가서 첨부파일 DB에서 삭제!
+			// 3. 서버단으로 가서 게시글 삭제
+			
+			
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 		

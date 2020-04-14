@@ -84,10 +84,12 @@ public class BoardServiceImpl implements BoardService{
 		
 
 	}
-
+	
+	@Transactional
 	@Override
 	public void delBoard(int bno) {
-		bDao.delBoard(bno);
+		bDao.deleteAttach(bno); // 첨부파일 삭제
+		bDao.delBoard(bno); // 게시글 삭제
 	}
 	
 	

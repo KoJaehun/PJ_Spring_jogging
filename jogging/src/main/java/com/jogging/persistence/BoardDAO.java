@@ -44,4 +44,7 @@ public interface BoardDAO {
 	
 	// 첨부파일 목록
 	public List<String> getAttach(@Param("bno") int bno);
+	
+	// 첨부파일 삭제
+	public void deleteAttach(@Param("bno") int bno);
 }
